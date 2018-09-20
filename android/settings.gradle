@@ -1,0 +1,3 @@
+rootProject.name = 'Donatrix'
+
+include ':app'
