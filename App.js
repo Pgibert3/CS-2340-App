@@ -1,20 +1,26 @@
-import React, {Component} from 'react';
-import {Text} from 'react-native';
-import WelcomePage from './components/Pages/WelcomePage';
-import {buttonPressed} from './actions';
+import React, {Component} from 'react';=
+import WelcomePage from './pages/WelcomePage/WelcomePage';
+import {createStore} from 'redux';
+import rootReducer from 'rootReducer';
+import Provider from "react-redux/es/components/Provider";
+import connect from "react-redux/es/connect/connect";
 
-// const App = createStackNavigator({
-//     Home: {screen: WelcomePage},
-// });
+const store = createStore(rootReducer);
 
-export default class App extends Component<{}> {
+export default class App extends Component {
     render() {
         return (
-            <WelcomePage />
+            <Provider store={store}>
+                <WelcomePage />
+            </Provider>
         );
     }
 }
 
-mapStateToProps = state => ({
+const mapStateToProps = state => {
+    return {
+        page: state.page
+    };
+};
 
-})
+export default connect(mapStateToProps)(App);
