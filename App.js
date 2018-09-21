@@ -1,44 +1,20 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React, {Component} from 'react';
+import {Text} from 'react-native';
+import WelcomePage from './components/Pages/WelcomePage';
+import {buttonPressed} from './actions';
 
-import React from 'react';
-import {render} from 'react-dom';
-import {provider} from 'react-redux';
-import {createStore} from 'redux';
+// const App = createStackNavigator({
+//     Home: {screen: WelcomePage},
+// });
 
-const initialState = {
-    items: []
-}
-
-const reducer = function(state=initialState, action) {
-    switch(action.type) {
-        case 'ADD_ITEM':
-            return (...state, items.concat([action.item]));
-
-        default:
-            return state;
-    }
-}
-
-const store = createStore(reducer);
-
-export default App extends React.Component<Props> {
+export default class App extends Component<{}> {
     render() {
-
+        return (
+            <WelcomePage />
+        );
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        items : state.items
-    };
-}
+mapStateToProps = state => ({
 
-function mapDispatchToProps(dispatch) {
-
-}
+})
