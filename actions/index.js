@@ -1,8 +1,13 @@
-import * as types
+import * as types from './types'
 
-const updatePage = page => {
-    return {
-        page,
-        type:
-    };
-};
+/**
+ * Updates the current page
+ *
+ * @param page The next page to display
+ *
+ * @return An action object with type and the new page
+ */
+export const updatePage = (page) => ({
+    type: types.UPDATE_PAGE,
+    page: page,
+});

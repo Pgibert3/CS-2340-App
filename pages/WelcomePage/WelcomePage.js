@@ -1,5 +1,6 @@
-//Add imports here
-
+import React, {Component} from 'react';
+import Button from '../components/Button';
+import {updatePage} from '../actions';
 
 /**
  * WelcomePage is displayed as the apps home screen
@@ -8,14 +9,9 @@
  * @return Text component for title and
  * two Button components for login/register
  */
-export default class WelcomePage extends Component<{}> {
+export default class WelcomePage extends Component {
     render() {
-        //TODO: return Text for title and two Buttons for
-        //Register and login
-    }
-
-    onLoginPressed(id) {
-        //TODO: update page state of App to LoginPage
+        <Button text="Test" onPressed={() => updatePage('LOGIN_PAGE')} />
     }
 
     //TODO: Subscribe this component to the App store

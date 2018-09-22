@@ -1,9 +1,9 @@
-import React, {Component} from 'react';=
-import WelcomePage from './pages/WelcomePage/WelcomePage';
+import React, {Component} from 'react';
 import {createStore} from 'redux';
-import rootReducer from 'rootReducer';
-import Provider from "react-redux/es/components/Provider";
-import connect from "react-redux/es/connect/connect";
+import {Provider} from 'react-redux';
+import rootReducer from './reducers'
+import WelcomePage from './pages/WelcomePage/WelcomePage';
+import LoginPage from './pages/WelcomePage/LoginPage';
 
 const store = createStore(rootReducer);
 
@@ -11,7 +11,16 @@ export default class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <WelcomePage />
+                {
+                    switch (page) {
+                        case 'WELCOME_PAGE':
+                            return(<WelcomePage />);
+                        case 'LOGIN_PAGE':
+                            return (<LoginPage />);
+                        default:
+                            return (<Text>Error 404</Text>);
+                    }
+                }
             </Provider>
         );
     }
@@ -19,7 +28,7 @@ export default class App extends Component {
 
 const mapStateToProps = state => {
     return {
-        page: state.page
+        page: state.page,
     };
 };
 
