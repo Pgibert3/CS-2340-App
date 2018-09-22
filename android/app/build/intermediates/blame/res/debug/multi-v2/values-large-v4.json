@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Paul Gibert\\OneDrive - Georgia Institute of Technology\\School\\Y2-S1\\CS2340\\Donatrix\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-large-v4\\values-large-v4.xml",
+            "outputFile": "C:\\Users\\Paul Gibert\\Documents\\Projects\\Donatrix\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-large-v4\\values-large-v4.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Paul Gibert\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\d68f8d48d4722901f9d15fa818dd3227\\res\\values-large-v4\\values-large-v4.xml",

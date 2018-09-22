@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Button from '../components/Button';
-import {updatePage} from '../actions';
+import Button from '../../components/Button';
+import {updatePage} from '../../actions';
 
 /**
  * WelcomePage is displayed as the apps home screen
