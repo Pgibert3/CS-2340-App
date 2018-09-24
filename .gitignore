@@ -1,4 +1,6 @@
 node_modules/
 .idea/
-
 android/local.properties
+android/app/build/
+.DS_STORE
+.expo/

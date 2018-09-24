@@ -3,14 +3,17 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "android": "react-native run-android",
+    "expo": "expo start",
     "lint": "eslint src",
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "node node_modules/react-native/local-cli/cli.js start src",
     "test": "jest"
   },
   "dependencies": {
+    "expo": "^30.0.1",
     "react": "16.5.0",
     "react-dom": "^16.5.2",
-    "react-native": "0.57.0",
+    "react-native": "0.55.4",
     "react-navigation": "^2.16.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",

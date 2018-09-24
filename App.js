@@ -1,15 +1,14 @@
 'use strict';
 
 import React from 'react';
+import { AppRegistry } from 'react-native';
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import {View, Text} from 'react-native';
-import {connect} from 'react-redux';
 import {createStackNavigator} from 'react-navigation';
-import rootReducer from './src/reducers';
-import WelcomePage from './src/components/pages/welcomePage/WelcomePage';
-import LoginPage from './src/components/pages/loginPage/LoginPage';
-import DonatrixPage from './src/components/pages/donatrixPage/DonatrixPage';
+import rootReducer from './src/main/js/reducers';
+import WelcomePage from './src/main/js/components/pages/welcomePage/WelcomePage';
+import LoginPage from './src/main/js/components/pages/loginPage/LoginPage';
+import DonatrixPage from './src/main/js/components/pages/donatrixPage/DonatrixPage';
 
 const store = createStore(rootReducer);
 
@@ -31,5 +30,6 @@ const App = (page) => (
     </Provider>
 );
 
+AppRegistry.registerComponent('main', () => App);
 
 export default App;

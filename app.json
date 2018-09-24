@@ -1,4 +1,10 @@
 {
+  "expo": {
+    "name": "Donatrix",
+    "slug": "donatrix",
+    "sdkVersion": "30.0.0",
+    "privacy": "unlisted"
+  },
   "name": "Donatrix",
   "displayName": "Donatrix"
 }
