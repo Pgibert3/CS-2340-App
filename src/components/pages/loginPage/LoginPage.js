@@ -48,7 +48,7 @@ export default class LoginPage extends Component {
                 />
 
                 {/* Error Message */}
-                <Text>{this.state.error}</Text>
+                <Text style={{color: 'red'}}>{this.state.error}</Text>
             </View>
         );
     }
