@@ -12,10 +12,9 @@ export default class WelcomePage extends Component {
     };
 
     render() {
-        this.props.navigation.navigate('Login')
         return (
           <View>
-              <Text>Welcome Page!!</Text>
+              <Text>Welcome Page</Text>
               <Button
                   title="login"
                   onPress={() => this.props.navigation.navigate('Login')}

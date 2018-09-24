@@ -10,25 +10,24 @@ import PropTypes from 'prop-types';
 export default class TextInput extends Component {
     constructor() {
         super();
-
-        this.setState({
-            text: ''
-        });
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.submitted) {
-            this.propagateValue();
-        }
-    }
+    //What is this?? - Paul -----------
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.submitted) {
+    //         this.propagateValue();
+    //     }
+    // }
+    //
+    // propagateValue() {
+    //     this.props.updateInputs(this.state.text, 'username');
+    // }
 
-    propagateValue() {
-        this.props.updateInputs(this.state.text, 'username');
-    }
+    //-------------------------------------
 
     render() {
         return(
-            <NativeTextInput onChangeText={text => {this.setState({text})}} secureTextEntry={this.props.secure} />
+            <NativeTextInput onChangeText={this.props.onChangeText} secureTextEntry={this.props.secureTextEntry} />
         );
     }
 }

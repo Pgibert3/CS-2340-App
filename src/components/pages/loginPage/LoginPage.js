@@ -12,39 +12,35 @@ export default class LoginPage extends Component {
     constructor() {
         super();
 
-        this.setState({
-            submitted: false
-        });
-    }
+        this.state = {
+            usernameInput: '',
+            passwordInput: ''
+        };
 
-    updateInputs(value, field) {
-        const text = {};
-        this.setState(text[field] = value);
-    }
+        this.onUsernameInputChange = this.onUsernameInputChange.bind(this);
+        this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
 
-    onLoginPress() {
-        this.setState({
-            submitted: true
-        });
-
+        this.USERNAME = 'neo';
+        this.PASSWORD = 'password';
     }
 
     render() {
-        if (this.props.loggedIn) {
-            this.props.navigation.navigate('Welcome')
-        }
-        const submitted = this.state.submitted;
-
         return(
             <View>
                 <Text>Login Page</Text>
+
+                {/* Username Field */}
                 <Text>Username</Text>
-                <TextInput updateInputs={this.updateInputs()} submitted={submitted}  />
+                <TextInput onChangeText={this.onUsernameInputChange} />
+
+                {/* Password Field */}
                 <Text>Password</Text>
-                <TextInput updateInputs={this.updateInputs()} submitted={submitted} secure={true} />
+                <TextInput onChangeText={this.onPasswordInputChange} secureTextEntry={true}/>
+
                 <Button
                     title='login'
-                    onPress={this.onLoginPress}
+                    onPress={this.onSubmit}
                 />
                 <Button
                     title='cancel'
@@ -53,16 +49,26 @@ export default class LoginPage extends Component {
             </View>
         );
     }
+
+    onUsernameInputChange(t) {
+        this.setState({
+            usernameInput: t
+        });
+    }
+
+    onPasswordInputChange(t) {
+        this.setState({
+            passwordInput: t
+        });
+    }
+
+    onSubmit() {
+        if (this.state.usernameInput === this.USERNAME
+                && this.state.passwordInput === this.PASSWORD) {
+            this.props.navigation.navigate('Donatrix');
+        } else {
+            //TODO: Add reaction to invalid credentials
+            return null;
+        }
+    }
 }
-
-const mapStateToProps = (state) => ({
-    loggedIn: state.loggedIn
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    onLoginPress: (usernameInput, passwordInput) => (
-        dispatch(submitLoginForm(usernameInput, passwordInput))
-    )
-});
-
-connect(mapStateToProps, mapDispatchToProps)(LoginPage);

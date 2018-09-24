@@ -4,7 +4,7 @@ ADDED from C:\Users\Paul Gibert\Documents\Projects\Donatrix\android\app\src\main
 INJECTED from C:\Users\Paul Gibert\Documents\Projects\Donatrix\android\app\src\main\AndroidManifest.xml:1:1-26:12
 INJECTED from C:\Users\Paul Gibert\Documents\Projects\Donatrix\android\app\src\main\AndroidManifest.xml:1:1-26:12
 INJECTED from C:\Users\Paul Gibert\Documents\Projects\Donatrix\android\app\src\main\AndroidManifest.xml:1:1-26:12
-MERGED from [com.facebook.react:react-native:0.57.0] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\react-native-0.57.0.aar\ac36dd07a3560dbc04c9e4769bf276c5\AndroidManifest.xml:2:1-15:12
+MERGED from [com.facebook.react:react-native:0.57.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\react-native-0.57.1.aar\903ef1f8c8f6e8d4ffbf7b8651f75e4d\AndroidManifest.xml:2:1-15:12
 MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\d68f8d48d4722901f9d15fa818dd3227\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\938ece0fb106ac02bbf1c990c5afefe9\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:animated-vector-drawable:27.1.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\357ebff126d0c05c9be964b2d0879ee6\AndroidManifest.xml:17:1-22:12
@@ -47,14 +47,14 @@ ADDED from C:\Users\Paul Gibert\Documents\Projects\Donatrix\android\app\src\main
 		ADDED from C:\Users\Paul Gibert\Documents\Projects\Donatrix\android\app\src\main\AndroidManifest.xml:4:22-64
 uses-permission#android.permission.SYSTEM_ALERT_WINDOW
 ADDED from C:\Users\Paul Gibert\Documents\Projects\Donatrix\android\app\src\main\AndroidManifest.xml:5:5-77
-MERGED from [com.facebook.react:react-native:0.57.0] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\react-native-0.57.0.aar\ac36dd07a3560dbc04c9e4769bf276c5\AndroidManifest.xml:11:5-78
-MERGED from [com.facebook.react:react-native:0.57.0] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\react-native-0.57.0.aar\ac36dd07a3560dbc04c9e4769bf276c5\AndroidManifest.xml:11:5-78
+MERGED from [com.facebook.react:react-native:0.57.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\react-native-0.57.1.aar\903ef1f8c8f6e8d4ffbf7b8651f75e4d\AndroidManifest.xml:11:5-78
+MERGED from [com.facebook.react:react-native:0.57.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\react-native-0.57.1.aar\903ef1f8c8f6e8d4ffbf7b8651f75e4d\AndroidManifest.xml:11:5-78
 	android:name
 		ADDED from C:\Users\Paul Gibert\Documents\Projects\Donatrix\android\app\src\main\AndroidManifest.xml:5:22-75
 application
 ADDED from C:\Users\Paul Gibert\Documents\Projects\Donatrix\android\app\src\main\AndroidManifest.xml:7:5-24:19
-MERGED from [com.facebook.react:react-native:0.57.0] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\react-native-0.57.0.aar\ac36dd07a3560dbc04c9e4769bf276c5\AndroidManifest.xml:13:5-20
-MERGED from [com.facebook.react:react-native:0.57.0] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\react-native-0.57.0.aar\ac36dd07a3560dbc04c9e4769bf276c5\AndroidManifest.xml:13:5-20
+MERGED from [com.facebook.react:react-native:0.57.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\react-native-0.57.1.aar\903ef1f8c8f6e8d4ffbf7b8651f75e4d\AndroidManifest.xml:13:5-20
+MERGED from [com.facebook.react:react-native:0.57.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\react-native-0.57.1.aar\903ef1f8c8f6e8d4ffbf7b8651f75e4d\AndroidManifest.xml:13:5-20
 MERGED from [com.facebook.soloader:soloader:0.5.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\soloader-0.5.1.aar\de39bdb70b81531d0eaa03a8edb593e2\AndroidManifest.xml:11:5-20
 MERGED from [com.facebook.soloader:soloader:0.5.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\soloader-0.5.1.aar\de39bdb70b81531d0eaa03a8edb593e2\AndroidManifest.xml:11:5-20
 MERGED from [org.webkit:android-jsc:r174650] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\android-jsc-r174650.aar\e0d61d8df04f916319a00c1fb4a98b7a\AndroidManifest.xml:2:3-17
@@ -97,8 +97,8 @@ uses-sdk
 INJECTED from C:\Users\Paul Gibert\Documents\Projects\Donatrix\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\Paul Gibert\Documents\Projects\Donatrix\android\app\src\main\AndroidManifest.xml
 INJECTED from C:\Users\Paul Gibert\Documents\Projects\Donatrix\android\app\src\main\AndroidManifest.xml
-MERGED from [com.facebook.react:react-native:0.57.0] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\react-native-0.57.0.aar\ac36dd07a3560dbc04c9e4769bf276c5\AndroidManifest.xml:7:5-9:41
-MERGED from [com.facebook.react:react-native:0.57.0] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\react-native-0.57.0.aar\ac36dd07a3560dbc04c9e4769bf276c5\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.57.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\react-native-0.57.1.aar\903ef1f8c8f6e8d4ffbf7b8651f75e4d\AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.57.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\react-native-0.57.1.aar\903ef1f8c8f6e8d4ffbf7b8651f75e4d\AndroidManifest.xml:7:5-9:41
 MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\d68f8d48d4722901f9d15fa818dd3227\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:appcompat-v7:27.1.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\d68f8d48d4722901f9d15fa818dd3227\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:support-fragment:27.1.1] C:\Users\Paul Gibert\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\938ece0fb106ac02bbf1c990c5afefe9\AndroidManifest.xml:20:5-44

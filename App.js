@@ -9,13 +9,15 @@ import {createStackNavigator} from 'react-navigation';
 import rootReducer from './src/reducers';
 import WelcomePage from './src/components/pages/welcomePage/WelcomePage';
 import LoginPage from './src/components/pages/loginPage/LoginPage';
+import DonatrixPage from './src/components/pages/donatrixPage/DonatrixPage';
 
 const store = createStore(rootReducer);
 
 const RootStack = createStackNavigator(
     {
         Welcome: WelcomePage,
-        Login: LoginPage
+        Login: LoginPage,
+        Donatrix: DonatrixPage
     },
     {
         initialRouteName: 'Welcome',
