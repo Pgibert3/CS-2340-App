@@ -1,36 +1,33 @@
+'use strict';
+
+import React from 'react';
 import {createStore} from 'redux';
-import {Provider, connect} from 'react-redux';
-import WelcomePage from './pages/WelcomePage/WelcomePage';
-import LoginPage from './pages/LoginPage/LoginPage';
-import {Text} from 'react-native';
+import {Provider} from 'react-redux';
+import {View, Text} from 'react-native';
+import {connect} from 'react-redux';
+import {createStackNavigator} from 'react-navigation';
+import rootReducer from './src/reducers';
+import WelcomePage from './src/components/pages/welcomePage/WelcomePage';
+import LoginPage from './src/components/pages/loginPage/LoginPage';
 
-class App extends Component {
-    render() {
-        return (
-            <Text>HiThereQQWEEQF</Text>
-        );
+const store = createStore(rootReducer);
+
+const RootStack = createStackNavigator(
+    {
+        Welcome: WelcomePage,
+        Login: LoginPage
+    },
+    {
+        initialRouteName: 'Welcome',
+        headerMode: 'none'
     }
+);
 
-    // getPage(page) {
-    //     switch (page) {
-    //         case 'WELCOME_PAGE':
-    //             return(<WelcomePage />);
-    //         case 'LOGIN_PAGE':
-    //             return (<LoginPage />);
-    //         default:
-    //             return (<Text>Error 404</Text>);
-    //     }
-    // }
-}
+const App = (page) => (
+    <Provider store = {store}>
+        <RootStack />
+    </Provider>
+);
 
-const mapStateToProps = (state) => {
-    return ({
-        page: state.page,
-    });
-}
 
-const mapDispatchToProps = (dispatch) => {
-    return null;
-}
-
-export default connect(mapStateToProps, mapDipatchToProps)(App);
+export default App;

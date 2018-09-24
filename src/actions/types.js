@@ -1,0 +1,1 @@
+export const SUBMIT_LOGIN_FORM = 'UPDATE_PAGE';
