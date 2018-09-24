@@ -3,5 +3,8 @@
   "plugins": ["react", "react-native"],
   "ecmaFeatures": {
     "jsx": true
+  },
+  "rules": {
+    "indent": ["error", 4]
   }
 }
