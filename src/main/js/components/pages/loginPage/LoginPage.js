@@ -21,8 +21,8 @@ export default class LoginPage extends Component {
         this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
-        this.USERNAME = 'neo';
-        this.PASSWORD = 'password';
+        this.USERNAME = 'user';
+        this.PASSWORD = 'pass';
     }
 
     render() {
