@@ -46,6 +46,9 @@ export default class LoginPage extends Component {
                     title='cancel'
                     onPress={() => this.props.navigation.navigate('Welcome')}
                 />
+
+                {/* Error Message */}
+                <Text>{this.state.error}</Text>
             </View>
         );
     }
@@ -67,8 +70,7 @@ export default class LoginPage extends Component {
                 && this.state.passwordInput === this.PASSWORD) {
             this.props.navigation.navigate('Donatrix');
         } else {
-            //TODO: Add reaction to invalid credentials
-            return null;
+            this.setState({error: 'Invalid username or password'});
         }
     }
 }
