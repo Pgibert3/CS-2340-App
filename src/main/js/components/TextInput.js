@@ -12,19 +12,6 @@ export default class TextInput extends Component {
         super();
     }
 
-    //What is this?? - Paul -----------
-    // componentWillReceiveProps(nextProps) {
-    //     if (nextProps.submitted) {
-    //         this.propagateValue();
-    //     }
-    // }
-    //
-    // propagateValue() {
-    //     this.props.updateInputs(this.state.text, 'username');
-    // }
-
-    //-------------------------------------
-
     render() {
         return(
             <NativeTextInput onChangeText={this.props.onChangeText} secureTextEntry={this.props.secureTextEntry} />

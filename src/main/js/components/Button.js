@@ -1,27 +1,58 @@
-import React, {Component} from 'react';
-import {Button as NativeButton} from 'react-native';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  Text,
+  Animated,
+  Easing,
+  TouchableWithoutFeedback
+} from 'react-native';
 
-/**
- * Basic Button Component
- * @param title Text to be displayued in button
- * @param onPress Callback function for when button is pressed
- *
- * @return Returns a react-native Button with styling
- */
 export default class Button extends Component {
+    this.scale = new Animated.Value(0);
+
+    const buttonScale = scaleValue.interpolate({
+        inputRange: [0, 0.5, 1],
+        outputRange: [0, 1.1, 1]
+    });
+
     render() {
-        return(
-            <NativeButton
-                title={this.props.title}
-                onPress={this.props.onPress}
-            />
+        return (
+            <TouchableWithoutFeedback onPress={this.props.onPress}
+            <Animated.View style={[]}>
         );
     }
-}
+    scale() {
+        this.scale.setValue(0);
+        Animated.timing(
+            this.scale,
+            {
+                toValue: 1,
+                duration: 300,
+                easing: Easing.easeOutBack
+            }
+        ).start();
+    }
 
-//Type checking
-Button.propTypes = {
-    title: PropTypes.string.isRequired,
-    onPress: PropTypes.func,
+    onPress() {
+        scale();
+        props.onPress();
+    }
+
+    getContent() {
+        return <Text style=styles.title>{props.title}</Text>
+    }
+
+    const styles = StyleSheet.create({
+        title: {
+            alignItems: 'center'
+        },
+        button: {
+            alignItems: 'center',
+            justifyContext: 'center',
+            padding: 20,
+            borderWidth: 1,
+            borderColor: "FFFFFFF",
+            margin: 20
+        }
+    })
 }
