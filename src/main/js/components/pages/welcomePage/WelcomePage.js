@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import Button from '../../Button';
-
+import {VIEW_STYLES} from '../../../styles';
 /**
  * Welcome Page is the first screen the user sees when opening the app ...
  * with an option to login or register
@@ -13,7 +13,7 @@ export default class WelcomePage extends Component {
 
     render() {
         return (
-          <View>
+          <View style={VIEW_STYLES.defaultColumn}>
               <Text>Welcome Page</Text>
               <Button
                   title="login"
@@ -27,12 +27,3 @@ export default class WelcomePage extends Component {
         );
     }
 }
-
-const mapStateToProps = (state) => ({
-    username: state.username,
-    password: state.password
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    onSubmit: dispatch()
-});

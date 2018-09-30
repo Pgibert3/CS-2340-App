@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 import Button from '../../Button';
-import TextInput from '../../TextInput';
-import {submitLoginForm} from '../../../actions/index';
+import FormTextInput from '../../FormTextInput';
+import {VIEW_STYLES} from '../../../styles';
 
 /**
  * Login Page displays username and password fields ...
@@ -27,25 +27,27 @@ export default class LoginPage extends Component {
 
     render() {
         return(
-            <View>
+            <View style={VIEW_STYLES.defaultColumn}>
+
                 <Text>Login Page</Text>
 
                 {/* Username Field */}
-                <Text>Username</Text>
-                <TextInput onChangeText={this.onUsernameInputChange} />
+                <FormTextInput title='username' onChangeText={this.onUsernameInputChange} />
 
                 {/* Password Field */}
-                <Text>Password</Text>
-                <TextInput onChangeText={this.onPasswordInputChange} secureTextEntry={true}/>
+                <FormTextInput title='password' onChangeText={this.onPasswordInputChange} secureTextEntry={true}/>
 
-                <Button
-                    title='login'
-                    onPress={this.onSubmit}
-                />
-                <Button
-                    title='cancel'
-                    onPress={() => this.props.navigation.navigate('Welcome')}
-                />
+                {/* buttons */}
+                <View style={VIEW_STYLES.defaultRow}>
+                    <Button
+                        title='login'
+                        onPress={this.onSubmit}
+                    />
+                    <Button
+                        title='cancel'
+                        onPress={() => this.props.navigation.navigate('Welcome')}
+                    />
+                </View>
 
                 {/* Error Message */}
                 <Text style={{color: 'red'}}>{this.state.error}</Text>

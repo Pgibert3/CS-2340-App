@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {TextInput as NativeTextInput} from 'react-native';
 import PropTypes from 'prop-types';
-
 /**
  * Basic TextInput Component
  *
@@ -14,7 +13,15 @@ export default class TextInput extends Component {
 
     render() {
         return(
-            <NativeTextInput onChangeText={this.props.onChangeText} secureTextEntry={this.props.secureTextEntry} />
+            <NativeTextInput
+                onChangeText={this.props.onChangeText}
+                secureTextEntry={this.props.secureTextEntry}
+                style={this.props.style}
+            />
         );
     }
+}
+
+TextInput.defaultProps = {
+    secureTextEntry: false
 }
