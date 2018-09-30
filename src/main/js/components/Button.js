@@ -10,11 +10,17 @@ import {
 export default class Button extends Component {
     constructor(props) {
       super(props);
-      this.scaleValue = new Animated.Value(0);
+      this.animatedValue = new Animated.Value(0);
+      this.onPress = this.onPress.bind(this);
 
-      this.buttonScale = this.scaleValue.interpolate({
+      this.buttonScale = this.animatedValue.interpolate({
           inputRange: [0, 0.5, 1],
-          outputRange: [0, 1.1, 1]
+          outputRange: [1, .95, 1]
+      });
+
+      this.buttonOpacity = this.animatedValue.interpolate({
+          inputRange: [0, 0.5, 1],
+          outputRange: [1, .5, 1]
       });
 
       this.styles = StyleSheet.create({
@@ -29,13 +35,10 @@ export default class Button extends Component {
               color: '#FF0000'
           }
       });
+
     }
 
     render() {
-        const scale = this.scaleValue.interpolate({
-            inputRange: [0, 1],
-            outputRange: [0, 2]
-        });
         return (
             <TouchableWithoutFeedback onPress={this.onPress} >
                 <Animated.View style={[
@@ -43,7 +46,8 @@ export default class Button extends Component {
                     {
                         transform: [
                             {scale: this.buttonScale}
-                        ]
+                        ],
+                        opacity: this.buttonOpacity
                     }
                     ]}
                 >
@@ -54,11 +58,11 @@ export default class Button extends Component {
     }
 
     scale() {
-        this.scaleValue.setValue(0);
-        Animation.timing(
-            this.scaleValue,
+        this.animatedValue.setValue(0);
+        Animated.timing(
+            this.animatedValue,
             {
-                toValue: 1.5,
+                toValue: 1,
                 duration: 300,
                 easing: Easing.linear
             }
