@@ -6,6 +6,7 @@ import {
   Easing,
   TouchableWithoutFeedback
 } from 'react-native';
+import {COLORS} from '../styles';
 
 export default class Button extends Component {
     constructor(props) {
@@ -26,13 +27,13 @@ export default class Button extends Component {
       this.styles = StyleSheet.create({
           button: {
               alignItems: 'center',
-              padding: 40,
-              borderWidth: 1,
-              borderColor: '#FF00FF',
-              margin: 20
+              padding: 10,
+              margin: 10,
+              backgroundColor: COLORS.PRIMARY_BLUE,
+              elevation: 0,
           },
           title: {
-              color: '#FF0000'
+              color: COLORS.PALE_WHITE
           }
       });
 
@@ -63,7 +64,7 @@ export default class Button extends Component {
             this.animatedValue,
             {
                 toValue: 1,
-                duration: 300,
+                duration: 100,
                 easing: Easing.linear
             }
         ).start();
