@@ -34,4 +34,4 @@ export default class FormTextInput extends Component {
 
 FormTextInput.defaultProps = {
     secureTextEntry: false
-}
+};
