@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native'
-import TextInput from 'TextInput';
-import {VIEW_STYLES, FORM_TEXT_INPUT_STYLES} from '../styles';
+import {View} from 'react-native'
 import PropTypes from 'prop-types';
+import TextInput from 'TextInput';
+import Text from 'Text';
+import {VIEW_STYLES, FORM_TEXT_INPUT_STYLES} from '../styles';
 
 /**
  *  Form Input that wraps a TextInput Component
@@ -17,7 +18,10 @@ export default class FormTextInput extends Component {
     render() {
         return(
             <View style={VIEW_STYLES.formElement}>
-                <Text style={FORM_TEXT_INPUT_STYLES.title}>{this.props.title}</Text>
+                <Text
+                    style={FORM_TEXT_INPUT_STYLES.title}
+                    text={this.props.title}
+                />
                 <TextInput
                     onChangeText={this.props.onChangeText}
                     secureTextEntry={this.props.secureTextEntry}

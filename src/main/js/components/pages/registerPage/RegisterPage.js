@@ -71,7 +71,6 @@ export default class RegisterPage extends Component {
     }
 
     onFieldUpdate(t, field) {
-
         switch (field) {
             case 'fname':
                 this.setState({fnameInput: t});

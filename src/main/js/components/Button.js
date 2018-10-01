@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   StyleSheet,
-  Text,
   Animated,
   Easing,
   TouchableWithoutFeedback
 } from 'react-native';
+import Text from 'Text';
 import {BUTTON_STYLES} from '../styles';
+
 
 export default class Button extends Component {
     constructor(props) {
@@ -27,7 +28,7 @@ export default class Button extends Component {
 
     render() {
         return (
-            <TouchableWithoutFeedback onPress={this.onPress} >
+            <TouchableWithoutFeedback onPress={this.onPress}>
                 <Animated.View style={[
                     BUTTON_STYLES.button,
                     {
@@ -38,7 +39,7 @@ export default class Button extends Component {
                     }
                     ]}
                 >
-                <Text style={BUTTON_STYLES.title}>{this.props.title}</Text>
+                <Text style={BUTTON_STYLES.title} text={this.props.title} />
                 </Animated.View>
             </TouchableWithoutFeedback>
         );

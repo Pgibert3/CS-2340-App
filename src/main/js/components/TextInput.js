@@ -24,5 +24,5 @@ export default class TextInput extends Component {
 }
 
 TextInput.defaultProps = {
-    secureTextEntry: false
+    secureTextEntry: false,
 }

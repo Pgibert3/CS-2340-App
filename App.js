@@ -27,7 +27,7 @@ const RootStack = createStackNavigator(
     }
 );
 
-const App = (page) => (
+const App = () => (
     <Provider store = {store}>
         <RootStack />
     </Provider>

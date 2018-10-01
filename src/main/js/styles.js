@@ -69,8 +69,6 @@ export const BUTTON_STYLES = StyleSheet.create({
     }
 });
 
-
-
 /**
  * Styling for default FormTextInput
  * title: The title of the field

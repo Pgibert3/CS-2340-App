@@ -3,7 +3,7 @@ import {Text as NativeText} from 'react-native';
 
 export default class Text extends Component {
     constructor(props) {
-      super(props);
+        super(props);
     }
 
     render () {
