@@ -79,7 +79,7 @@ public class MysqlCon {
     public static void main(String[] args) throws SQLException {
         MysqlCon me = new MysqlCon();
 //        me.registerUser("dpoole@gatech.edu", "password", "0", "Davidson Poole");
-        me.checkRegisteredUser("dpoo@gatech.edu");
+        me.checkRegisteredUser("dpoole@gatech.edu");
 
 //        try {
 //            Class.forName("com.mysql.jdbc.Driver");
