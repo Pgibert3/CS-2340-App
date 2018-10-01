@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {TextInput as NativeTextInput} from 'react-native';
 import PropTypes from 'prop-types';
+import {BASE_STYLES} from '../styles';
 /**
  * Basic TextInput Component
  *

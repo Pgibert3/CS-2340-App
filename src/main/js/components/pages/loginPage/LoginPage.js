@@ -1,24 +1,29 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
+import Text from '../../Text';
 import Button from '../../Button';
 import FormTextInput from '../../FormTextInput';
-import {VIEW_STYLES} from '../../../styles';
+import {BASE_STYLES, VIEW_STYLES, TEXT_STYLES} from '../../../styles';
 
 /**
  * Login Page displays username and password fields ...
  * and a cancel button
  */
 export default class LoginPage extends Component {
-    constructor() {
-        super();
+
+    static navigationOptions = {
+        title: 'Register',
+    }
+
+    constructor(props) {
+        super(props);
 
         this.state = {
             usernameInput: '',
-            passwordInput: ''
-        };
+            passwordInput: '',
+        }
 
-        this.onUsernameInputChange = this.onUsernameInputChange.bind(this);
-        this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
+        this.onFieldUpdate = this.onFieldUpdate.bind(this); //needed with arrow op?
         this.onSubmit = this.onSubmit.bind(this);
 
         this.USERNAME = 'user';
@@ -29,13 +34,20 @@ export default class LoginPage extends Component {
         return(
             <View style={VIEW_STYLES.defaultColumn}>
 
-                <Text>Login Page</Text>
+                <Text text='Login Page' style={TEXT_STYLES.header1} />
 
                 {/* Username Field */}
-                <FormTextInput title='username' onChangeText={this.onUsernameInputChange} />
+                <FormTextInput
+                    title='username'
+                    onChangeText={(t) => this.onFieldUpdate(t, "user")}
+                />
 
                 {/* Password Field */}
-                <FormTextInput title='password' onChangeText={this.onPasswordInputChange} secureTextEntry={true}/>
+                <FormTextInput
+                    title='password'
+                    onChangeText={(t) => this.onFieldUpdate(t, "pass")}
+                    secureTextEntry={true}
+                />
 
                 {/* buttons */}
                 <View style={VIEW_STYLES.defaultRow}>
@@ -55,16 +67,17 @@ export default class LoginPage extends Component {
         );
     }
 
-    onUsernameInputChange(t) {
-        this.setState({
-            usernameInput: t
-        });
-    }
-
-    onPasswordInputChange(t) {
-        this.setState({
-            passwordInput: t
-        });
+    onFieldUpdate(t, field) {
+        switch (field) {
+            case 'user':
+                this.setState({usernameInput: t});
+                break;
+            case 'pass':
+                this.setState({passwordInput: t});
+                break;
+            default:
+                break;
+        }
     }
 
     onSubmit() {

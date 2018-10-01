@@ -10,11 +10,11 @@ import {StyleSheet} from 'react-native';
 
 //Colors
 const COLORS = {
-    PRIMARY_BLUE: '#1A0083',
-    SECONDARY_BLUE: '#24374F',
-    OLD_GOLD: '#6B6132',
-    NEW_GOLD: '#D6A145',
-    PALE_WHITE: '#E4F0D0'
+    PRIMARY_1: '#1A0083',
+    PRIMARY_2: '#24374F',
+    SECONDARY_1: '#6B6132',
+    SECONDARY_2: '#D6A145',
+    WHITE: '#E4F0D0',
 }
 
 //Spacing
@@ -22,7 +22,7 @@ const DEFAULT_SPACING = {
     MARGIN_HORIZONTAL: 10,
     MARGIN_VERTICAL: 10,
     PADDING_HORIZONTAL: 20,
-    PADDING_VERTICAL: 10
+    PADDING_VERTICAL: 10,
 }
 
 /**
@@ -43,10 +43,11 @@ export const VIEW_STYLES = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'flex-start',
         marginVertical: DEFAULT_SPACING.MARGIN_VERTICAL,
-        marginHorizontal: DEFAULT_SPACING.MARGIN_HORIZONTAL
+        marginHorizontal: DEFAULT_SPACING.MARGIN_HORIZONTAL,
     }
 
 });
+
 /**
  * Styling for the default button
  * button: main body of button
@@ -61,24 +62,46 @@ export const BUTTON_STYLES = StyleSheet.create({
         marginHorizontal: DEFAULT_SPACING.MARGIN_HORIZONTAL,
         width: 100,
         height: 45,
-        backgroundColor: COLORS.PRIMARY_BLUE,
+        backgroundColor: COLORS.PRIMARY_1,
     },
     title: {
-        color: COLORS.PALE_WHITE,
+        color: COLORS.WHITE,
+    }
+});
+
+
+
+/**
+ * Styling for default FormTextInput
+ * title: The title of the field
+ * inputField: the styling of the native TextInput
+ */
+export const FORM_TEXT_INPUT_STYLES = StyleSheet.create({
+    title: {
+        color: COLORS.SECONDARY_2,
+        fontSize: 24,
+    },
+    inputField: {
+        fontSize: 18,
     }
 });
 
 /**
- *Styling for default TextInput
- *input: main body of text input
+ * Styling for various texts
+ * header1: The largest standard heading
+ * header2: A large heading
  */
-export const FORM_TEXT_INPUT_STYLES = StyleSheet.create({
-    title: {
-        color: COLORS.NEW_GOLD,
-        fontSize: 24,
-        fontWeight: '400',
+ export const TEXT_STYLES = StyleSheet.create({
+    header1: {
+        color: COLORS.PRIMARY_1,
+        fontSize: 26,
+        marginVertical: DEFAULT_SPACING.MARGIN_VERTICAL,
+        marginHorizontal: DEFAULT_SPACING.MARGIN_HORIZONTAL,
     },
-    inputField: {
-        fontSize: 18
+    header2: {
+      color: COLORS.PRIMARY_1,
+      fontSize: 18,
+      marginVertical: DEFAULT_SPACING.MARGIN_VERTICAL,
+      marginHorizontal: DEFAULT_SPACING.MARGIN_HORIZONTAL,
     }
-});
+ });
