@@ -26,8 +26,19 @@ public class MysqlCon {
             Statement stmt = con.createStatement();
 //            stmt.executeUpdate(sql);
             rs = stmt.executeQuery(sql);
+//            ResultSetMetaData rsmd = rs.getMetaData();
+//            int columnNumer = rsmd.getColumnCount();
+//            while (rs.next()) {
+//                for (int i = 1; i <= columnNumer; i++ ) {
+//                    if (i > 1) System.out.print(", ");
+//                    String columnValue = rs.getString(i);
+//                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
+//                }
+//                System.out.println("");
+//            }
 //            System.out.println(rs);
         } catch(Exception e) {
+            rs = null;
             System.out.println(e);
         }
         return rs;
@@ -54,19 +65,21 @@ public class MysqlCon {
         startConnectionForUpdate(sql);
     }
 
-    public boolean checkRegisteredUser(String username) {
+    public boolean checkRegisteredUser(String username) throws SQLException {
         String sql = String.format("select * from donatrix.users where email = '%s';", username);
 
-        if (startConnectionForData(sql) != null) {
+        if (startConnectionForData(sql).next()) {
+            System.out.println("true");
             return true;
         }
+        System.out.println("False");
         return false;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         MysqlCon me = new MysqlCon();
 //        me.registerUser("dpoole@gatech.edu", "password", "0", "Davidson Poole");
-        me.checkRegisteredUser("dpoole@gatech.edu");
+        me.checkRegisteredUser("dpoo@gatech.edu");
 
 //        try {
 //            Class.forName("com.mysql.jdbc.Driver");
