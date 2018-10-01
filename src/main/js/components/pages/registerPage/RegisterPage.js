@@ -93,7 +93,51 @@ export default class RegisterPage extends Component {
     }
 
     onSubmit() {
-        /*TODO: Send values down to java methods
-        and get a success flag and/or error messages*/
+        const params = {
+              fname: this.state.fnameInput,
+              lname: this.state.lnameInput,
+              email: this.state.emailInput,
+              password: this.state.passwordInput,
+              confPassword: this.state.confirmPasswordInput,
+        };
+        /*
+            > This runs when the register button is clicked
+            > This method needs to call a java method like so:
+            const results = javaMethod(params);
+            > Where results is an object of the following form:
+            results = {
+                isValidFname: (boolean),
+                isValidLname: (boolean),
+                isValidEmail: (boolean),
+                matchingPasswords: (boolean)
+            }
+            > The value of results is purly for UI. The backend has already
+            considered whether or not params is valid on its own and updated
+            the database accoridngly
+        */
+        const results = javaMethod(params); //replace with valid method
+        let valid = true;
+
+        if (!results.isValidFname) {
+            valid = false;
+            //Do Something
+        }
+        if (!results.isValidLname) {
+            valid = false;
+            //Do Something
+        }
+        if (!results.isValidEmail) {
+            valid = false;
+            //Do Something
+        }
+        if (!results.mathchingPasswords) {
+            valid = false;
+            //Do Something
+        }
+        if (valid) {
+            //Do Something
+            this.props.navigation.navigate('Login') //Go to login page
+        }
+
     }
 }

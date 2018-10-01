@@ -3,9 +3,9 @@ import {
   StyleSheet,
   Animated,
   Easing,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
 } from 'react-native';
-import Text from 'Text';
+import Text from './Text';
 import {BUTTON_STYLES} from '../styles';
 
 

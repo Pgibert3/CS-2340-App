@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {View} from 'react-native'
 import PropTypes from 'prop-types';
-import TextInput from 'TextInput';
-import Text from 'Text';
+import TextInput from './TextInput';
+import Text from './Text';
 import {VIEW_STYLES, FORM_TEXT_INPUT_STYLES} from '../styles';
 
 /**
