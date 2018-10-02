@@ -14,10 +14,11 @@ public class UserDao extends RNAndroidBridgeModule {
 
     @ReactMethod
     public void registerUser(String username, String password, String locked, String name, Promise promise) {
-        String sql = String.format("insert into donatrix.users values('%s'," +
+        String sql = String.format("INSERT into donatrix.users values('%s'," +
                 "'%s','%s','%s')", username, password, locked, name);
         try {
-            MySQLCon.startConnectionForUpdate(sql);
+            MySQLCon Conn = new MySQLCon();
+            Conn.startConnectionForWrite(sql);
             promise.resolve(Status.SUCCESS.toString());
         } catch (SQLException sqle) {
             promise.reject("E_LAYOUT_ERROR", sqle.getMessage());
@@ -32,7 +33,9 @@ public class UserDao extends RNAndroidBridgeModule {
         String sql = String.format("select * from donatrix.users where email = '%s';", username);
 
         try {
-            if (MySQLCon.startConnectionForData(sql) != null) {
+            MySQLCon Conn = new MySQLCon();
+            Conn.startConnectionForWrite(sql);
+            if (Conn.startConnectionForData(sql) != null) {
                 promise.resolve(true);
             } else {
                 promise.resolve(false);
