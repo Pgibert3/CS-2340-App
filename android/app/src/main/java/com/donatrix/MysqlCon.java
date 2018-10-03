@@ -19,7 +19,7 @@ public class MysqlCon {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/Donatrix", "root",
+                    "jdbc:mysql://127.0.0.1:3306/Donatrix", "root",
                     "password");
 //            System.out.println("Connected to database");
 //            System.out.println(sql);
@@ -79,7 +79,7 @@ public class MysqlCon {
     public static void main(String[] args) throws SQLException {
         MysqlCon me = new MysqlCon();
 //        me.registerUser("dpoole@gatech.edu", "password", "0", "Davidson Poole");
-        me.checkRegisteredUser("dpoole@gatech.edu");
+        me.registerUser("pharris@gatech.edu", "password", "0", "Parker Harris");
 
 //        try {
 //            Class.forName("com.mysql.jdbc.Driver");
