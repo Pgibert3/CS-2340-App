@@ -3,26 +3,18 @@ package com.donatrix;
 import java.sql.*;
 
 public class MysqlCon {
-//    String username = "awarrier@gatech.edu";
-//    String password = "password";
-//    String locked = "0";
-//    String name = "Ashvin Warrier";
-//
-//    String sql = String.format("insert into donatrix.users values('%s','%s','%s','%s')", username, password, locked, name);
 
     public MysqlCon() {
 
     }
 
-    private ResultSet startConnectionForData(String sql) {
+    private ResultSet startConnectionForRead(String sql) {
         ResultSet rs = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     "jdbc:mysql://127.0.0.1:3306/Donatrix", "root",
                     "password");
-//            System.out.println("Connected to database");
-//            System.out.println(sql);
             Statement stmt = con.createStatement();
 //            stmt.executeUpdate(sql);
             rs = stmt.executeQuery(sql);
@@ -44,14 +36,12 @@ public class MysqlCon {
         return rs;
     }
 
-    private void startConnectionForUpdate(String sql) {
+    private void startConnectionForWrite(String sql) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con = DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/Donatrix", "root",
                     "password");
-//            System.out.println("Connected to database");
-//            System.out.println(sql);
             Statement stmt = con.createStatement();
             stmt.executeUpdate(sql);
 //            ResultSet rs = stmt.executeQuery(sql);
@@ -62,13 +52,13 @@ public class MysqlCon {
     public void registerUser(String username, String password, String locked, String name) {
         String sql = String.format("insert into donatrix.users values('%s'," +
                 "'%s','%s','%s')", username, password, locked, name);
-        startConnectionForUpdate(sql);
+        startConnectionForWrite(sql);
     }
 
     public boolean checkRegisteredUser(String username) throws SQLException {
         String sql = String.format("select * from donatrix.users where email = '%s';", username);
 
-        if (startConnectionForData(sql).next()) {
+        if (startConnectionForRead(sql).next()) {
             System.out.println("true");
             return true;
         }
@@ -76,22 +66,22 @@ public class MysqlCon {
         return false;
     }
 
-    public static void main(String[] args) throws SQLException {
-        MysqlCon me = new MysqlCon();
-//        me.registerUser("dpoole@gatech.edu", "password", "0", "Davidson Poole");
-        me.registerUser("pharris@gatech.edu", "password", "0", "Parker Harris");
-
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            Connection con = DriverManager.getConnection(
-//                    "jdbc:mysql://localhost:3306/Donatrix", "root",
-//                    "password");
+//    public static void main(String[] args) throws SQLException {
+//        MysqlCon me = new MysqlCon();
+////        me.registerUser("dpoole@gatech.edu", "password", "0", "Davidson Poole");
+//        me.registerUser("pgibert@gatech.edu", "password", "0", "Paul Gibert");
 //
-//            Statement stmt = con.createStatement();
-//            ResultSet rs = stmt.executeQuery("select * from emp");
-//        } catch(Exception e) {
-//            System.out.println(e);
-//        }
+////        try {
+////            Class.forName("com.mysql.jdbc.Driver");
+////            Connection con = DriverManager.getConnection(
+////                    "jdbc:mysql://localhost:3306/Donatrix", "root",
+////                    "password");
+////
+////            Statement stmt = con.createStatement();
+////            ResultSet rs = stmt.executeQuery("select * from emp");
+////        } catch(Exception e) {
+////            System.out.println(e);
+////        }
+////    }
 //    }
-    }
 }
