@@ -9,7 +9,6 @@ import com.facebook.react.bridge.Promise;
 
 import java.util.Map;
 import java.util.HashMap;
-import com.donatrix.Database;
 
 public class RNJavaLink extends ReactContextBaseJavaModule {
 
@@ -24,9 +23,8 @@ public class RNJavaLink extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void registerUser(String email, String password, String locked, String name, Promise promise) {
-        Database conn = Database.getInstance();
         try {
-            conn.registerUser(email, password, locked, name);
+            Database.getInstance().registerUser(email, password, locked, name);
             promise.resolve("SUCCESS");
         } catch (Exception e) {
             promise.reject("E_LAYOUT_ERROR", e.getMessage());
