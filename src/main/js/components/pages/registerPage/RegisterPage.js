@@ -101,6 +101,13 @@ export default class RegisterPage extends Component {
         let password = this.state.passwordInput
         let confPassword = this.state.confirmPasswordInput
 
-        RNJavaLink.registerUser(email, password, "0", fname);
+        RNJavaLink.registerUser(email, password, "0", fname)
+        .then(response => {
+            alert(response);
+        })
+        .catch(error => {
+            alert(error);
+            console.error(error);
+        });
     }
 }
