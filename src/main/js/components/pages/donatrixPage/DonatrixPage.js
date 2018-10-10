@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import Button from '../../Button';
+import Text from '../../Text';
 
 /**
  * This is the Donatrix
  */
-export default class WelcomePage extends Component {
+export default class DonatrixPage extends Component {
     static navigationOptions = {
-        title: 'Welcome'
+        title: 'Donatrix'
     };
 
     render() {
         return (
           <View>
-              <Text>Welcome to the Donatrix</Text>
+              <Text text='Welcome to the Donatrix' />
               <Button
                   title='Log out'
                   onPress={() => this.props.navigation.navigate('Welcome')}
@@ -22,12 +23,3 @@ export default class WelcomePage extends Component {
         );
     }
 }
-
-const mapStateToProps = (state) => ({
-    username: state.username,
-    password: state.password
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    onSubmit: dispatch()
-});
