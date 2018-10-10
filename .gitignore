@@ -1,7 +1,8 @@
 node_modules/
 **/.idea/
-android/local.properties
+**/local.properties
 android/app/build/
 **/.gradle/
 .DS_STORE
 .expo/
+**/.iml
