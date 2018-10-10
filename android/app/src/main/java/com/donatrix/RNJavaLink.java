@@ -30,4 +30,15 @@ public class RNJavaLink extends ReactContextBaseJavaModule {
             promise.reject("E_LAYOUT_ERROR", e.getMessage());
         }
     }
+
+    @ReactMethod
+    public boolean checkRegisteredUser(String email, String password, Promise promise) {
+        try {
+            promise.resolve("SUCCESS");
+            return Database.getInstance().checkRegisteredUser(email, password);
+        } catch (Exception e) {
+            promise.reject("E_LAYOUT_ERROR", e.getMessage());
+            return false;
+        }
+    }
 }

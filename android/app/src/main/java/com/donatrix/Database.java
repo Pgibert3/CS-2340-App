@@ -43,7 +43,7 @@ public class Database {
     }
 
     public void registerUser(String username, String password, String locked, String name) {
-        if (!(userList.contains(username)) && !(passList.contains(password))) {
+        if (!(userList.contains(username))) {
             userList.add(username);
             passList.add(password);
             lockedList.add(locked);
