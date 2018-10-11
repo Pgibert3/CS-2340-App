@@ -1,6 +1,8 @@
 package com.donatrix.model;
 
-public enum UserType {
+import java.io.Serializable;
+
+public enum UserType implements Serializable {
     ADMIN("ADMIN"),
     LOCATION_EMPLOYEE("LOCATION_EMPLOYEE"),
     MANAGER("MANAGER"),

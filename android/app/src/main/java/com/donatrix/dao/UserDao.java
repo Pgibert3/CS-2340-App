@@ -1,18 +1,15 @@
 package com.donatrix.dao;
 
-import android.util.Log;
+import android.content.Context;
 
 import com.donatrix.model.UserType;
 
 public class UserDao {
-    public static void registerUser(String email, String password, boolean locked, String name, String type) throws IllegalArgumentException {
-        Database.getInstance().registerUser(email, password, locked, name, UserType.valueOf(type));
-        for (String user: Database.getInstance().getUserList()) {
-            Log.d("ReactNative", "" + user);
-        }
+    public static void registerUser(String email, String password, String name, boolean locked, String type, Context context) throws IllegalArgumentException {
+        Database.getInstance(context).registerUser(email, password, name, locked, UserType.valueOf(type));
     }
 
-    public static boolean checkRegisteredUser(String email, String password) {
-        return Database.getInstance().checkRegisteredUser(email, password);
+    public static boolean checkRegisteredUser(String email, String password, Context context) {
+        return Database.getInstance(context).checkRegisteredUser(email, password);
     }
 }

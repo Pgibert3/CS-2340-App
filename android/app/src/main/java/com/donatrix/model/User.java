@@ -1,12 +1,22 @@
 package com.donatrix.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private String email;
     private String password;
     private String name;
-    private boolean accountState;
+    private boolean locked;
     private UserType userType;
+
+    public User(String email, String password, String name, boolean locked, UserType userType) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.locked = locked;
+        this.userType = userType;
+    }
 
     public void setEmail(String email) {
         this.email = email;
@@ -26,11 +36,11 @@ public class User {
     public String getName() {
         return this.name;
     }
-    public void setAccountState(boolean accountState) {
-        this.accountState = accountState;
+    public void setLocked(boolean locked) {
+        this.locked = locked;
     }
-    public boolean getAccountState() {
-        return this.accountState;
+    public boolean getLocked() {
+        return this.locked;
     }
     public void setUserType(UserType userType) {
         this.userType = userType;

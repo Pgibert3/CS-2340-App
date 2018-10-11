@@ -21,6 +21,8 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+        <service android:name="com.donatrix.dao.UserDaoService">
+        </service>
     </application>
 
 </manifest>

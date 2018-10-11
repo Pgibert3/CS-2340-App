@@ -2,71 +2,75 @@
         //parse("File Header.java")
 package com.donatrix.dao;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.donatrix.model.User;
 import com.donatrix.model.UserType;
 
-import java.util.ArrayList;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.HashMap;
 
 
 public class Database {
     private static Database ourInstance;
-    private ArrayList<String> userList;
-    private ArrayList<String> passList;
-    private ArrayList<Boolean> lockedList;
-    private ArrayList<String> nameList;
-    private ArrayList<UserType> typeList;
+    private Context context;
+    private HashMap<String, User> databaseMap;
 
-    public static Database getInstance() {
+    public static Database getInstance(Context context) {
         if (Database.ourInstance != null) {
             return ourInstance;
         }
-        return ourInstance = new Database();
+        return ourInstance = new Database(context);
     }
 
-    private Database() {
-        userList = new ArrayList<>();
-        passList = new ArrayList<>();
-        lockedList = new ArrayList<>();
-        nameList = new ArrayList<>();
-        typeList = new ArrayList<>();
+    private Database(Context context) {
+        this.context = context;
+        load();
     }
 
-    public ArrayList<String> getUserList() {
-        return userList;
+    private void save() {
+        try {
+            FileOutputStream fos = this.context.openFileOutput("database.ser", Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(this.databaseMap);
+            os.close();
+            fos.close();
+        } catch (Exception e) {
+            Log.d("Donatrix", e.getMessage());
+        }
     }
 
-    public ArrayList<String> getPassList() {
-        return passList;
+    private void load() {
+        try {
+            FileInputStream fis = this.context.openFileInput("database.ser");
+            ObjectInputStream is = new ObjectInputStream(fis);
+            this.databaseMap = (HashMap<String, User>) is.readObject();
+            if (this.databaseMap == null) {
+                Log.d("Donatrix", "Null");
+                this.databaseMap = new HashMap<>();
+            }
+            is.close();
+            fis.close();
+        } catch (Exception e) {
+            Log.d("Donatrix", e.getMessage());
+        }
     }
 
-    public ArrayList<Boolean> getLockedList() {
-        return lockedList;
-    }
-
-    public ArrayList<String> getNameList() {
-        return nameList;
-    }
-
-    public ArrayList<UserType> getTypeList() {
-        return typeList;
-    }
-
-    public void registerUser(String username, String password, boolean locked, String name, UserType type) {
-        Log.d("ReactNative", "" + username + password + name);
-        if (!(userList.contains(username))) {
-            userList.add(username);
-            passList.add(password);
-            lockedList.add(locked);
-            nameList.add(name);
-            typeList.add(type);
+    public void registerUser(String username, String password, String name, boolean locked, UserType type) {
+        if (!(this.databaseMap.containsKey(username))) {
+            this.databaseMap.put(username, new User(username, password, name, locked, type));
+            save();
         } else {
-            throw new IllegalArgumentException("Username or password not correct");
+            throw new IllegalArgumentException("Username already taken");
         }
     }
 
     public boolean checkRegisteredUser(String username, String password) {
-        return userList.contains(username) && passList.contains(password)
-                && userList.indexOf(username) == passList.indexOf(password) && !lockedList.get(userList.indexOf(username));
+        User user = this.databaseMap.get(username);
+        return user.getPassword().equals(password) && !user.getLocked();
     }
 }

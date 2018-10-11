@@ -99,7 +99,7 @@ export default class RegisterPage extends Component {
             userType
         } = this.state;
 
-        RNAndroidBridge.registerUser(email, pass, false, `${fname} ${lname}`, userType)
+        RNAndroidBridge.registerUser(email, pass, `${fname} ${lname}`, false, userType)
         .then(response => {
             alert(response);
             if (response.includes('Welcome')) {
