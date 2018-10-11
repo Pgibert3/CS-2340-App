@@ -20,7 +20,7 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void registerUser(String email, String password, String locked, String name, Promise promise) {
+    public void registerUser(String email, String password, boolean locked, String name, Promise promise) {
         try {
             UserDao.registerUser(email, password, locked, name);
             promise.resolve("SUCCESS");

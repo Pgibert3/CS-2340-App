@@ -11,7 +11,7 @@ public class Database {
     private static Database ourInstance;
     private ArrayList<String> userList;
     private ArrayList<String> passList;
-    private ArrayList<String> lockedList;
+    private ArrayList<Boolean> lockedList;
     private ArrayList<String> nameList;
 
     public static Database getInstance() {
@@ -36,7 +36,7 @@ public class Database {
         return passList;
     }
 
-    public ArrayList<String> getLockedList() {
+    public ArrayList<Boolean> getLockedList() {
         return lockedList;
     }
 
@@ -44,7 +44,7 @@ public class Database {
         return nameList;
     }
 
-    public void registerUser(String username, String password, String locked, String name) {
+    public void registerUser(String username, String password, boolean locked, String name) {
         Log.d("ReactNative", "" + username + password + name);
         if (!(userList.contains(username))) {
             userList.add(username);
@@ -58,6 +58,6 @@ public class Database {
 
     public boolean checkRegisteredUser(String username, String password) {
         return userList.contains(username) && passList.contains(password)
-                && userList.indexOf(username) == passList.indexOf(password) && !(lockedList.get(userList.indexOf(username)).equals("1"));
+                && userList.indexOf(username) == passList.indexOf(password) && !lockedList.get(userList.indexOf(username));
     }
 }

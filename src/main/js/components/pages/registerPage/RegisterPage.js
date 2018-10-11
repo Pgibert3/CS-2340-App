@@ -19,11 +19,11 @@ export default class RegisterPage extends Component {
         super(props);
 
         this.state = {
-            fnameInput: '',
-            lnameInput: '',
-            emailInput: '',
-            passwordInput: '',
-            confirmPasswordInput: '',
+            fname: '',
+            lname: '',
+            email: '',
+            pass: '',
+            confPass: '',
         };
 
         this.onFieldUpdate = this.onFieldUpdate.bind(this); //needed with arrow op?
@@ -73,37 +73,21 @@ export default class RegisterPage extends Component {
     }
 
     onFieldUpdate(t, field) {
-        switch (field) {
-            case 'fname':
-                this.setState({fnameInput: t});
-                break;
-            case 'lname':
-                this.setState({lnameInput: t});
-                break;
-            case 'email':
-                this.setState({emailInput: t});
-                break;
-            case 'pass':
-                this.setState({passwordInput: t});
-                break;
-            case 'confPass':
-                this.setState({confirmPasswordInput: t});
-                break;
-            default:
-                break;
-        }
+        const state = {};
+        state[field] = t;
+        this.setState(state);
     }
 
     onSubmit() {
-        const fname = this.state.fnameInput;
-        const lname = this.state.lnameInput;
-        const email = this.state.emailInput;
-        const password = this.state.passwordInput;
-        const conf = this.state.confirmPasswordInput;
+        const {
+            fname,
+            lname,
+            email,
+            pass,
+            confPass
+        } = this.state;
 
-        alert(fname + lname + email + password);
-
-        RNAndroidBridge.registerUser(email, password, "0", fname)
+        RNAndroidBridge.registerUser(email, pass, false, fname)
         .then(response => {
             if (response === 'SUCCESS') {
                 alert("Registration successful");
