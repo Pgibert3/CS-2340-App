@@ -8,6 +8,18 @@ public class User {
     private boolean accountState;
     private UserType userType;
 
+    public User(String email, String password, String name, boolean accountState, UserType userType) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.accountState = accountState;
+        this.userType = userType;
+    }
+
+    public User(String email, String password) {
+        this(email, password, "Anonymous", false, UserType.USER);
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
