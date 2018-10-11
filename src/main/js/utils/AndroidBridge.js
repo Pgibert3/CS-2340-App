@@ -1,2 +1,2 @@
 import {NativeModules} from 'react-native';
-module.exports = NativeModules.RNAndroidBridge;
+export default NativeModules.RNAndroidBridge;

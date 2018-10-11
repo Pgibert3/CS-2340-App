@@ -4,6 +4,8 @@ package com.donatrix.dao;
 
 import android.util.Log;
 
+import com.donatrix.model.UserType;
+
 import java.util.ArrayList;
 
 
@@ -13,6 +15,7 @@ public class Database {
     private ArrayList<String> passList;
     private ArrayList<Boolean> lockedList;
     private ArrayList<String> nameList;
+    private ArrayList<UserType> typeList;
 
     public static Database getInstance() {
         if (Database.ourInstance != null) {
@@ -26,6 +29,7 @@ public class Database {
         passList = new ArrayList<>();
         lockedList = new ArrayList<>();
         nameList = new ArrayList<>();
+        typeList = new ArrayList<>();
     }
 
     public ArrayList<String> getUserList() {
@@ -44,13 +48,18 @@ public class Database {
         return nameList;
     }
 
-    public void registerUser(String username, String password, boolean locked, String name) {
+    public ArrayList<UserType> getTypeList() {
+        return typeList;
+    }
+
+    public void registerUser(String username, String password, boolean locked, String name, UserType type) {
         Log.d("ReactNative", "" + username + password + name);
         if (!(userList.contains(username))) {
             userList.add(username);
             passList.add(password);
             lockedList.add(locked);
             nameList.add(name);
+            typeList.add(type);
         } else {
             throw new IllegalArgumentException("Username or password not correct");
         }

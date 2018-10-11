@@ -1,4 +1,4 @@
-package com.donatrix;
+package com.donatrix.model;
 
 public class User {
 
@@ -6,6 +6,7 @@ public class User {
     private String password;
     private String name;
     private boolean accountState;
+    private UserType userType;
 
     public void setEmail(String email) {
         this.email = email;
@@ -30,5 +31,11 @@ public class User {
     }
     public boolean getAccountState() {
         return this.accountState;
+    }
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
+    public UserType getUserType() {
+        return userType;
     }
 }

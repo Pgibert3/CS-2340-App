@@ -1,8 +1,7 @@
 package com.donatrix.bridge;
 
-import android.util.Log;
-
 import com.donatrix.dao.UserDao;
+import com.donatrix.model.UserType;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -20,10 +19,10 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void registerUser(String email, String password, boolean locked, String name, Promise promise) {
+    public void registerUser(String email, String password, boolean locked, String name, String type, Promise promise) {
         try {
-            UserDao.registerUser(email, password, locked, name);
-            promise.resolve("SUCCESS");
+            UserDao.registerUser(email, password, locked, name, type);
+            promise.resolve("Welcome " + type.charAt(0) + type.substring(1).toLowerCase());
         } catch (Exception e) {
             promise.reject("E_LAYOUT_ERROR", e.getMessage());
         }

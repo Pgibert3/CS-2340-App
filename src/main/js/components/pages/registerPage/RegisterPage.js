@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {View, Picker} from 'react-native';
 import Text from '../../Text';
 import Button from '../../Button';
 import FormTextInput from '../../FormTextInput';
 import {VIEW_STYLES, TEXT_STYLES} from '../../../styles';
 import RNAndroidBridge from '../../../utils/AndroidBridge';
+import UserType from '../../../utils/UserType';
 
 /**
  * Register Page prompts the user with fields to register a new account
@@ -24,6 +25,7 @@ export default class RegisterPage extends Component {
             email: '',
             pass: '',
             confPass: '',
+            userType: 'USER',
         };
 
         this.onFieldUpdate = this.onFieldUpdate.bind(this); //needed with arrow op?
@@ -56,6 +58,15 @@ export default class RegisterPage extends Component {
                     title="Confirm Password"
                     onChangeText={(t) => this.onFieldUpdate(t, "confPass")}
                 />
+                <Picker
+                    selectedValue={this.state.userType}
+                    style={{ height: 50, width: 200 }}
+                    onValueChange={userType => this.setState({userType})}>
+                    <Picker.Item label="Admin" value={UserType.ADMIN} />
+                    <Picker.Item label="Location Employee" value={UserType.LOCATION_EMPLOYEE} />
+                    <Picker.Item label="Manager" value={UserType.MANAGER} />
+                    <Picker.Item label="User" value={UserType.USER} />
+                </Picker>
 
                 {/* buttons */}
                 <View style={VIEW_STYLES.defaultRow}>
@@ -84,16 +95,15 @@ export default class RegisterPage extends Component {
             lname,
             email,
             pass,
-            confPass
+            confPass,
+            userType
         } = this.state;
 
-        RNAndroidBridge.registerUser(email, pass, false, fname)
+        RNAndroidBridge.registerUser(email, pass, false, `${fname} ${lname}`, userType)
         .then(response => {
-            if (response === 'SUCCESS') {
-                alert("Registration successful");
+            alert(response);
+            if (response.includes('Welcome')) {
                 this.props.navigation.navigate('Login');
-            } else {
-                alert(response);
             }
         })
         .catch(error => {
