@@ -4,6 +4,7 @@ import Text from '../../Text';
 import Button from '../../Button';
 import FormTextInput from '../../FormTextInput';
 import {BASE_STYLES, VIEW_STYLES, TEXT_STYLES} from '../../../styles';
+import RNAndroidBridge from '../../../utils/AndroidBridge';
 
 /**
  * Login Page displays username and password fields ...

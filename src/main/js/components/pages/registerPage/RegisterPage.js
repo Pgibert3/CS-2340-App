@@ -4,7 +4,7 @@ import Text from '../../Text';
 import Button from '../../Button';
 import FormTextInput from '../../FormTextInput';
 import {VIEW_STYLES, TEXT_STYLES} from '../../../styles';
-import RNJavaLink from '../../RNJavaLink';
+import RNAndroidBridge from '../../../utils/AndroidBridge';
 
 /**
  * Register Page prompts the user with fields to register a new account
@@ -24,7 +24,7 @@ export default class RegisterPage extends Component {
             emailInput: '',
             passwordInput: '',
             confirmPasswordInput: '',
-        }
+        };
 
         this.onFieldUpdate = this.onFieldUpdate.bind(this); //needed with arrow op?
         this.onSubmit = this.onSubmit.bind(this);
@@ -95,13 +95,15 @@ export default class RegisterPage extends Component {
     }
 
     onSubmit() {
-        let fname = this.state.fnameInput
-        let lname = this.state.lnameInput
-        let email = this.state.emailInput
-        let password = this.state.passwordInput
-        let confPassword = this.state.confirmPasswordInput
+        const {
+            fname,
+            lname,
+            email,
+            password,
+            confPassword
+        } = this.state;
 
-        RNJavaLink.registerUser(email, password, "0", fname)
+        RNAndroidBridge.registerUser(email, password, "0", fname)
         .then(response => {
             alert(response);
         })

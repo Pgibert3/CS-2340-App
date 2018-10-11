@@ -1,6 +1,6 @@
 //if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
         //parse("File Header.java")
-package com.donatrix;
+package com.donatrix.dao;
 
 import java.util.ArrayList;
 

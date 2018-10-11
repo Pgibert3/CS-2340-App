@@ -1,30 +1,26 @@
-package com.donatrix;
+package com.donatrix.bridge;
 
-import com.facebook.react.bridge.NativeModule;
+import com.donatrix.dao.UserDao;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Promise;
 
-import java.util.Map;
-import java.util.HashMap;
+public class RNAndroidBridge extends ReactContextBaseJavaModule {
 
-public class RNJavaLink extends ReactContextBaseJavaModule {
-
-    public RNJavaLink(ReactApplicationContext reactContext) {
+    public RNAndroidBridge(ReactApplicationContext reactContext) {
         super(reactContext);
     }
 
     @Override
     public String getName() {
-        return "RNJavaLink";
+        return "RNAndroidBridge";
     }
 
     @ReactMethod
     public void registerUser(String email, String password, String locked, String name, Promise promise) {
         try {
-            Database.getInstance().registerUser(email, password, locked, name);
+            UserDao.registerUser(email, password, locked, name);
             promise.resolve("SUCCESS");
         } catch (Exception e) {
             promise.reject("E_LAYOUT_ERROR", e.getMessage());
@@ -32,13 +28,11 @@ public class RNJavaLink extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public boolean checkRegisteredUser(String email, String password, Promise promise) {
+    public void checkRegisteredUser(String email, String password, Promise promise) {
         try {
-            promise.resolve("SUCCESS");
-            return Database.getInstance().checkRegisteredUser(email, password);
+            promise.resolve(UserDao.checkRegisteredUser(email, password));
         } catch (Exception e) {
             promise.reject("E_LAYOUT_ERROR", e.getMessage());
-            return false;
         }
     }
 }
