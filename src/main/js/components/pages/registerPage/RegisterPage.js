@@ -95,21 +95,25 @@ export default class RegisterPage extends Component {
     }
 
     onSubmit() {
-        const {
-            fname,
-            lname,
-            email,
-            password,
-            confPassword
-        } = this.state;
+        const fname = this.state.fnameInput;
+        const lname = this.state.lnameInput;
+        const email = this.state.emailInput;
+        const password = this.state.passwordInput;
+        const conf = this.state.confirmPasswordInput;
+
+        alert(fname + lname + email + password);
 
         RNAndroidBridge.registerUser(email, password, "0", fname)
         .then(response => {
-            alert(response);
+            if (response === 'SUCCESS') {
+                alert("Registration successful");
+                this.props.navigation.navigate('Login');
+            } else {
+                alert(response);
+            }
         })
         .catch(error => {
             alert(error);
-            console.error(error);
         });
     }
 }

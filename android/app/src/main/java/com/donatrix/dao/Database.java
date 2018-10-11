@@ -2,15 +2,17 @@
         //parse("File Header.java")
 package com.donatrix.dao;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 
 public class Database {
     private static Database ourInstance;
-    private ArrayList userList;
-    private ArrayList passList;
-    private ArrayList lockedList;
-    private ArrayList nameList;
+    private ArrayList<String> userList;
+    private ArrayList<String> passList;
+    private ArrayList<String> lockedList;
+    private ArrayList<String> nameList;
 
     public static Database getInstance() {
         if (Database.ourInstance != null) {
@@ -20,29 +22,30 @@ public class Database {
     }
 
     private Database() {
-        userList = new ArrayList();
-        passList = new ArrayList();
-        lockedList = new ArrayList();
-        nameList = new ArrayList();
+        userList = new ArrayList<>();
+        passList = new ArrayList<>();
+        lockedList = new ArrayList<>();
+        nameList = new ArrayList<>();
     }
 
-    public ArrayList getUserList() {
+    public ArrayList<String> getUserList() {
         return userList;
     }
 
-    public ArrayList getPassList() {
+    public ArrayList<String> getPassList() {
         return passList;
     }
 
-    public ArrayList getLockedList() {
+    public ArrayList<String> getLockedList() {
         return lockedList;
     }
 
-    public ArrayList getNameList() {
+    public ArrayList<String> getNameList() {
         return nameList;
     }
 
     public void registerUser(String username, String password, String locked, String name) {
+        Log.d("ReactNative", "" + username + password + name);
         if (!(userList.contains(username))) {
             userList.add(username);
             passList.add(password);
@@ -54,10 +57,7 @@ public class Database {
     }
 
     public boolean checkRegisteredUser(String username, String password) {
-        if (userList.contains(username) && passList.contains(password)
-                && userList.indexOf(username) == passList.indexOf(password) && !(lockedList.get(userList.indexOf(username)).equals("1"))) {
-            return true;
-        }
-        return false;
+        return userList.contains(username) && passList.contains(password)
+                && userList.indexOf(username) == passList.indexOf(password) && !(lockedList.get(userList.indexOf(username)).equals("1"));
     }
 }

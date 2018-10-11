@@ -14,7 +14,7 @@ export default class LoginPage extends Component {
 
     static navigationOptions = {
         title: 'Register',
-    }
+    };
 
     constructor(props) {
         super(props);
@@ -82,7 +82,7 @@ export default class LoginPage extends Component {
         RNAndroidBridge.checkRegisteredUser(this.state.usernameInput, this.state.passwordInput)
             .then(response => {
                 if (response) {
-                    this.props.navigation.navigate('Welcome');
+                    this.props.navigation.navigate('Donatrix');
                 } else {
                     this.setState({error: 'Invalid username or password'});
                 }
