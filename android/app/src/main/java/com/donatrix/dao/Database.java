@@ -49,14 +49,11 @@ public class Database {
             FileInputStream fis = this.context.openFileInput("database.ser");
             ObjectInputStream is = new ObjectInputStream(fis);
             this.databaseMap = (HashMap<String, User>) is.readObject();
-            if (this.databaseMap == null) {
-                Log.d("Donatrix", "Null");
-                this.databaseMap = new HashMap<>();
-            }
             is.close();
             fis.close();
         } catch (Exception e) {
             Log.d("Donatrix", e.getMessage());
+            this.databaseMap = new HashMap<>();
         }
     }
 
@@ -71,6 +68,6 @@ public class Database {
 
     public boolean checkRegisteredUser(String username, String password) {
         User user = this.databaseMap.get(username);
-        return user.getPassword().equals(password) && !user.getLocked();
+        return user != null && user.getPassword().equals(password) && !user.getLocked();
     }
 }

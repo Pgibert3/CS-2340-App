@@ -22,7 +22,7 @@ export default class LoginPage extends Component {
         this.state = {
             usernameInput: '',
             passwordInput: '',
-            error: 'Hello'
+            error: ''
         };
 
         this.onFieldUpdate = this.onFieldUpdate.bind(this); //needed with arrow op?
@@ -61,7 +61,7 @@ export default class LoginPage extends Component {
                 </View>
 
                 {/* Error Message */}
-                <Text style={{color: 'red'}}>{this.state.error}</Text>
+                <Text style={{color: 'red'}} text={this.state.error} />
             </View>
         );
     }

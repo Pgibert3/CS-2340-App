@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Picker} from 'react-native';
+import {View, Picker, Alert} from 'react-native';
 import Text from '../../Text';
 import Button from '../../Button';
 import FormTextInput from '../../FormTextInput';
@@ -101,13 +101,14 @@ export default class RegisterPage extends Component {
 
         RNAndroidBridge.registerUser(email, pass, `${fname} ${lname}`, false, userType)
         .then(response => {
-            alert(response);
-            if (response.includes('Welcome')) {
-                this.props.navigation.navigate('Login');
+            if (response === 'SUCCESS') {
+                Alert.alert("Success", "Registration Successful", [{text: 'Login', onPress: () => {this.props.navigation.navigate('Login');}}]);
+            } else {
+                Alert.alert("Error", response);
             }
         })
         .catch(error => {
-            alert(error);
+            Alert.alert("Error", error);
         });
     }
 }
