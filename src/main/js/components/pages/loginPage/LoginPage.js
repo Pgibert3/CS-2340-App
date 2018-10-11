@@ -22,13 +22,10 @@ export default class LoginPage extends Component {
         this.state = {
             usernameInput: '',
             passwordInput: '',
-        }
+        };
 
         this.onFieldUpdate = this.onFieldUpdate.bind(this); //needed with arrow op?
         this.onSubmit = this.onSubmit.bind(this);
-
-        this.USERNAME = 'user';
-        this.PASSWORD = 'pass';
     }
 
     render() {
@@ -82,11 +79,16 @@ export default class LoginPage extends Component {
     }
 
     onSubmit() {
-        if (this.state.usernameInput === this.USERNAME
-                && this.state.passwordInput === this.PASSWORD) {
-            this.props.navigation.navigate('Donatrix');
-        } else {
-            this.setState({error: 'Invalid username or password'});
-        }
+        RNAndroidBridge.checkRegisteredUser(this.state.usernameInput, this.state.passwordInput)
+            .then(response => {
+                if (response) {
+                    this.props.navigation.navigate('Welcome');
+                } else {
+                    this.setState({error: 'Invalid username or password'});
+                }
+            })
+            .catch(err => {
+                alert(err);
+            });
     }
 }
