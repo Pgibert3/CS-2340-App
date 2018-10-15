@@ -1,5 +1,3 @@
-//if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
-        //parse("File Header.java")
 package com.donatrix.dao;
 
 import android.content.Context;
@@ -13,6 +11,8 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashMap;
+import java.util.ArrayList;
+import com.donatrix.model.User;
 
 
 public class Database {
