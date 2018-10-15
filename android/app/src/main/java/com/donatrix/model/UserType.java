@@ -10,11 +10,12 @@ public enum UserType implements Serializable {
 
     private String type;
 
-    public String getType() {
-        return this.type;
-    }
-
     UserType(String type) {
         this.type = type;
     }
+
+    public String getType() {
+        return this.type;
+    }
+    
 }
