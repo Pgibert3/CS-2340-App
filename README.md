@@ -41,3 +41,8 @@ close the node terminal and repeat step 5. For reload via double tapping 'r'
 or live reload, most of the time the emulator has to successfully build on
 start up. Errors introduced to the code after the first sucessfull build
 will not impact reloading.
+
+Credits
+-------------
+
+Icons made by Google found from FlatIcon licensed by CC 3.0 BY
