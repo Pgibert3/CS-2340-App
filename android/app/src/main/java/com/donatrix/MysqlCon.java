@@ -8,7 +8,7 @@ public class MysqlCon {
 
     }
 
-    private ResultSet startConnectionForRead(String sql) {
+    private static ResultSet startConnectionForRead(String sql) {
         ResultSet rs = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -55,7 +55,7 @@ public class MysqlCon {
         startConnectionForWrite(sql);
     }
 
-    public boolean checkRegisteredUser(String username) throws SQLException {
+    public static boolean checkRegisteredUser(String username) throws SQLException {
         String sql = String.format("select * from donatrix.users where email = '%s';", username);
 
         if (startConnectionForRead(sql).next()) {

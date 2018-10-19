@@ -3,6 +3,7 @@ import {View, Text} from 'react-native';
 import Button from '../../Button';
 import TextInput from '../../TextInput';
 import {submitLoginForm} from '../../../actions/index';
+import RNAndroidBridge from '../../../utils/AndroidBridge';
 
 /**
  * Login Page displays username and password fields ...
@@ -66,11 +67,16 @@ export default class LoginPage extends Component {
     }
 
     onSubmit() {
-        if (this.state.usernameInput === this.USERNAME
-                && this.state.passwordInput === this.PASSWORD) {
-            this.props.navigation.navigate('Donatrix');
-        } else {
-            this.setState({error: 'Invalid username or password'});
-        }
+            RNAndroidBridge.checkRegisteredUser(this.state.usernameInput, this.state.passwordInput)
+                .then(response => {
+                    if (response) {
+                        this.props.navigation.navigate('Donatrix');
+                    } else {
+                        this.setState({error: 'Invalid username or password'});
+                    }
+                })
+                .catch(err => {
+                    alert(err);
+                });
     }
 }
