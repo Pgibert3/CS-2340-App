@@ -1,7 +1,8 @@
 package com.donatrix.model;
 
 import java.sql.Timestamp;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
+import com.donatrix.model.*;
 
 public class Item {
 
@@ -12,10 +13,10 @@ public class Item {
     private double value;
     private ItemCategory category;
     private String comments;
-    private Image image;
+    private BufferedImage image;
 
     public Item(Timestamp time, Location location, String sDescription, String fDescription,
-                double value, ItemCategory category, String comments, Image image) {
+                double value, ItemCategory category, String comments, BufferedImage image) {
         this.time = time;
         this.location = location;
         this.sDescription = sDescription;
@@ -82,11 +83,11 @@ public class Item {
         this.comments = comments;
     }
 
-    public Image getImage() {
+    public BufferedImage getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(BufferedImage image) {
         this.image = image;
     }
 
