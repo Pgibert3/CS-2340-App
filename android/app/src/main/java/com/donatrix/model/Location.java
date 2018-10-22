@@ -13,6 +13,7 @@ public class Location implements Serializable {
     private LocationType locationType;
     private String number;
     private String website;
+    private ItemManager inventory;
 
     public Location(String[] info) {
         this.setName(info[1]);
@@ -105,5 +106,13 @@ public class Location implements Serializable {
 
     public String getWebsite() {
         return website;
+    }
+
+    public void addItem(Item item) {
+        item.setLocation(this.Location);
+        this.inventory.addItem(item);
+    }
+    public void removeItem(Item item) {
+        this.inventory.removeItem(item);
     }
 }
