@@ -123,7 +123,7 @@ public class Database {
         }
     }
 
-    public ArrayList<Location> getLocations() {
-        return (ArrayList<Location>) locationMap.values();
+    public HashMap<Integer, Location> getLocations() {
+        return locationMap;
     }
 }

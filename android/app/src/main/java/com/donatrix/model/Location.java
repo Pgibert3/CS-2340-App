@@ -106,4 +106,9 @@ public class Location implements Serializable {
     public String getWebsite() {
         return website;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s | %s | %s | %s | %s | %s | %s | %s | %s | %s", name, latitude, longitude, address, city, state, zip, locationType.getType(), number, website);
+    }
 }

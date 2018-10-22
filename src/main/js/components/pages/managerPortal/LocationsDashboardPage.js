@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {View} from 'react-native';
+import {Alert, View} from 'react-native';
 import Button from '../../Button';
-//import RNAndroidBridge from '../../../utils/AndroidBridge';
+import RNAndroidBridge from '../../../utils/AndroidBridge';
+import Text from '../../Text';
 
 export default class LocationsDashboardPage extends Component {
 
@@ -9,21 +10,65 @@ export default class LocationsDashboardPage extends Component {
         title: 'LocationsDashboard',
     };
 
-    contructor(props) {
+    /**
+     * Convert location data into a Location Component
+     *
+     * @param locations location data
+     * @return Array components
+     */
+    generateLocationTabs(locations) {
+        const tabs = [];
+        const createTab = prop => {
+            return <LocationTab key={Number.parseInt(prop)} title={locations[prop].name} onPress={() => this.onLocationPress(prop)} />;
+        };
+        for (const prop in locations) {
+            if (locations.hasOwnProperty(prop)) {
+                tabs.push(createTab(prop));
+            }
+        }
+        return tabs;
+    }
+
+    static generateLocationDetails(location) {
+        alert(location.name);
+        const details = [];
+        const createDetail = prop => {
+            return (
+              <Text key={prop} text={location[prop]} />
+            );
+        };
+        for (const prop in location) {
+            if (location.hasOwnProperty(prop)) {
+                details.push(createDetail(prop));
+            }
+        }
+
+        return details;
+    }
+
+    constructor(props) {
         super(props);
 
         this.state = {
-            locations: [],
-            locationDetails: '',
+            locations: {},
+            locationDetails: [],
+            locationTabs: [],
+            viewDetails: false
         };
+
+        this.generateLocationTabs = this.generateLocationTabs.bind(this);
+        this.onLocationPress = this.onLocationPress.bind(this);
     }
 
-    render() {
-        return(
-            <View>
-                {this.state.locations.map((location) => this.createLocationTab(location))}
-            </View>
-        );
+    componentDidMount() {
+        RNAndroidBridge.getLocations()
+            .then(map => {
+                const tabs = this.generateLocationTabs(map);
+                this.setState({locations: map, locationTabs: tabs});
+            })
+            .catch(err => {
+                Alert.alert("Error", err);
+            })
     }
 
     /**
@@ -32,54 +77,23 @@ export default class LocationsDashboardPage extends Component {
      * @param locationID a unique String identifying the location pressed
      */
     onLocationPress(locationID) {
-        if (loactionDetails === '') {
-            this.setState((prevState, props) => {
-                let details = prevState.locations.locationID.details;
-                return({
-                    locations: [],
-                    locationDetails: details,
-                });
-            });
-        else {
-            this.setState({
-                locations: this.fetchLocations(),
-                locationDetails: '',
-            });
-        }
-
-        }
+        const location = this.state.locations[locationID];
+        const locationDetails = LocationsDashboardPage.generateLocationDetails(location);
+        this.setState({viewDetails: true, locationDetails});
     }
 
-    /**
-     * Fetch loations data from database and update state
-     */
-    fetchLocations() {
-        location_data = []; //load with location data
-        this.setState({locations: location_data});
-    }
-
-    /**
-     * Convert location data into a Location Component
-     *
-     * @param locationData location data
-     * @return Location component
-     */
-    generateLocationTab(locationData) {
-        //TODO: Parse data and return Location component
-        return <Location this.title/>
-    }
-
-    /**
-     * Method for converting location details into a ...
-     * String to be displayed
-     *
-     * @param locationData
-     * @return a String containing the details of a location
-     */
-    generateLocationDetails(locationData) {
-        //TODO: Parse data and return a String
-        details = '';
-        return details;
+    render() {
+        const {viewDetails, locationDetails, locationTabs} = this.state;
+        return(
+            <View>
+                {viewDetails ? (
+                    <View>
+                        {locationDetails}
+                        <Button title="Back" onPress={() => this.setState({viewDetails: false})} />
+                    </View>
+                ) : locationTabs}
+            </View>
+        );
     }
 }
 
@@ -89,15 +103,11 @@ export default class LocationsDashboardPage extends Component {
  * @prop title -- name of location
  * @prop onPress -- action to take place on press in addition to default actions
  */
-class LocationTab extends Component{
+class LocationTab extends Component {
     constructor(props) {
-        super(props)
-    }
+        super(props);
 
-    render() {
-        return(
-            <Button title={this.props.title}, onPress={this.onPress} />
-        );
+        this.onPress = this.onPress.bind(this);
     }
 
     /**
@@ -105,6 +115,12 @@ class LocationTab extends Component{
      * if we want to add additional functionality to the onPress() method
      */
     onPress() {
-        this.props.onPress()
+        this.props.onPress();
+    }
+
+    render() {
+        return(
+            <Button title={this.props.title} onPress={this.onPress} />
+        );
     }
 }

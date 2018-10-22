@@ -1,7 +1,8 @@
 package com.donatrix.model;
 
+import android.media.Image;
+
 import java.sql.Timestamp;
-import java.awt.Image;
 
 public class Item {
 
