@@ -1,3 +1,5 @@
+package com.donatrix.model;
+
 import java.util.ArrrayList;
 
 public class ItemManager{
