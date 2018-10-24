@@ -41,3 +41,8 @@ close the node terminal and repeat step 5. For reload via double tapping 'r'
 or live reload, most of the time the emulator has to successfully build on
 start up. Errors introduced to the code after the first sucessfull build
 will not impact reloading.
+
+Enter DEBUG mode:
+    1) Run Emulator
+    2) enter adb logcat *:S ReactNative:V ReactNativeJS:V
+    see https://facebook.github.io/react-native/docs/debugging for troubleshooting
