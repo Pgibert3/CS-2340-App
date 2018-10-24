@@ -27,9 +27,11 @@ public class Database {
     private static Database ourInstance;
     private static HashMap<String, User> userMap;
     private static HashMap<Integer, Location> locationMap;
+    private static HashMap<Location, ArrayList<Item>> itemMap;
 
     public static final String USER = "USERS";
     public static final String LOC = "LOCATION";
+    public static final String INVENTORY = "IMVENTORY";
 
     public static Database getInstance(Context context) {
         if (Database.ourInstance != null) {
@@ -61,6 +63,9 @@ public class Database {
             case LOC:
                 locationMap = (HashMap<Integer, Location>) is.readObject();
                 break;
+            case INVENTORY:
+                itemMap = (HashMap<Location, Item> ) is.readObject();
+                break;
         }
 
         is.close();
@@ -71,6 +76,7 @@ public class Database {
         try {
             writeFile("users.db", userMap, context);
             writeFile("locations.db", locationMap, context);
+            writeFile("items.db", itemMap, context);
         } catch (Exception e) {
             Log.d("Donatrix", e.getMessage());
         }
@@ -80,6 +86,7 @@ public class Database {
         try {
             readFile("users.db", USER, context);
             readFile("locations.db", LOC, context);
+            readFile("items.db", INVENTORY, context);
         } catch (Exception e) {
             Log.d("Donatrix", e.getMessage());
             userMap = new HashMap<>();

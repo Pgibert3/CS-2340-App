@@ -2,7 +2,7 @@ package com.donatrix.model;
 
 import java.util.ArrrayList;
 
-public class ItemManager{
+public class ItemManager {
     private ArrayList<Item> items;
 
     public ItemManager() {
@@ -12,7 +12,11 @@ public class ItemManager{
         return this.items;
     }
 
-    public void addItem(Item item) {
+    public void addItem(Timestamp timestamp, Location, location, String sDescription,
+                        String fDescription, double value, ItemCategory category,
+                        String comments)) {
+        Item item = new Item(timestamp, location, sDescription, fDescription,
+                value, category, comments);
         this.items.add(item);
     }
 

@@ -1,6 +1,6 @@
 package com.donatrix.model;
 
-public enum ItemCategory {
+public enum ItemCategory implements Serializable {
     CLOTHING("Clothing"),
     HAT("Hat"),
     KITCHEN("Kitchen"),
