@@ -185,7 +185,33 @@ class Toolbar extends Component {
      * Querys the back end for items with filters
      */
      searchItems() {
-         //TODO: Implement. Set this.state.items
+         /*TODO: Implement by updating this.state.items
+
+         This method has access to the following data:
+            this.state.searchFieldInput -- the text contained in the input field
+            this.state.enabledFilters -- and array of the currently selected filter objects
+
+        A note on filter objects:
+            filter objects take the following form:
+
+                {
+                    id : [String],
+                    subFilters : [array],
+                    enabled : [bool],
+                }
+
+            When implementing this method, only the id attribute is relevant.
+            The id attribute is a String of information about an item that
+            can be used to filter it. For example, an item might have the tags,
+            toy, red, Atlanta, in which case the id's of its filter objects will
+            be "toy", "red", and "Atlanta".
+
+        This component also has an items state, which is just an empty array to
+        at mounting time. Use this.setState() to add the results to
+        this.state.items via this method
+         */
+
+         //For debugging purposes
          console.log("searching... " + this.state.searchFieldInput
                 + "\nfilters: " + this.state.enabledFilters.map((filter) => filter.id));
      }
