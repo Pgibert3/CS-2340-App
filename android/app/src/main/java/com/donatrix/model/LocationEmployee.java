@@ -17,7 +17,8 @@ public class LocationEmployee extends User {
 
     public void addItem(Timestamp time, String sDescription, String fDescription,
                         double value, ItemCategory category, String comments) {
-        location.addItem(time, sDescription, fDescription,
+        Item item = new Item(time, this.location, sDescription, fDescription,
                 value, category, comments);
+        location.addItem(item);
     }
 }

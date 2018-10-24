@@ -12,11 +12,7 @@ public class ItemManager {
         return this.items;
     }
 
-    public void addItem(Timestamp timestamp, Location, location, String sDescription,
-                        String fDescription, double value, ItemCategory category,
-                        String comments)) {
-        Item item = new Item(timestamp, location, sDescription, fDescription,
-                value, category, comments);
+    public void addItem(Item item) {
         this.items.add(item);
     }
 

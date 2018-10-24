@@ -108,11 +108,8 @@ public class Location implements Serializable {
         return website;
     }
 
-    public void addItem(Timestamp timestamp, String sDescription, String fDescription,
-                        double value, ItemCategory category, String comments)) {
-
-        this.inventory.addItem(timestamp, this, sDescription, fDescription, value,
-                category, comments);
+    public void addItem(Item item) {
+        this.inventory.addItem(item);
     }
     public void removeItem(Item item) {
         this.inventory.removeItem(item);
