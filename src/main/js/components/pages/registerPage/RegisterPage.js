@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Picker, Alert} from 'react-native';
+import {View, Picker, Alert, ScrollView} from 'react-native';
 import Text from '../../Text';
 import Button from '../../Button';
 import FormTextInput from '../../FormTextInput';
@@ -35,6 +35,7 @@ export default class RegisterPage extends Component {
     render() {
         return (
             <View style={VIEW_STYLES.defaultColumn}>
+                <ScrollView style={{width: '100%'}}>
                 <Text text="Registration Page" style={TEXT_STYLES.header1}/>
 
                 {/* Form inputs */}
@@ -79,6 +80,7 @@ export default class RegisterPage extends Component {
                         onPress={() => this.props.navigation.navigate('Welcome')}
                     />
                 </View>
+                </ScrollView>
             </View>
         );
     }
