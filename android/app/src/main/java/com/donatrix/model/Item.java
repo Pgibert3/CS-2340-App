@@ -2,6 +2,7 @@ package com.donatrix.model;
 
 import java.sql.Timestamp;
 import com.donatrix.model.*;
+import java.io.Serializable;
 
 public class Item implements Serializable {
 

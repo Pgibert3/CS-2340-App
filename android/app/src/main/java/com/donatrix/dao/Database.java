@@ -9,6 +9,8 @@ import com.donatrix.R;
 import com.donatrix.model.Location;
 import com.donatrix.model.User;
 import com.donatrix.model.UserType;
+import com.donatrix.model.Item;
+import com.donatrix.model.LocationEmployee;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,7 +21,9 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 
@@ -79,10 +83,10 @@ public class Database {
 
     private void save(Context context) {
         try {
-            writeFile("users.db", userMap, context);
-            writeFile("locations.db", locationMap, context);
-            writeFile("items.db", itemMap, context);
-            writeFile("employees.db", employeeMap, context);
+            writeFile("users.db", (HashMap<String, User>) userMap, context);
+            writeFile("locations.db", (HashMap<Integer, Location>) locationMap, context);
+            writeFile("items.db", (HashMap<Location, ArrayList<Item>>) itemMap, context);
+            writeFile("employees.db", (HashMap<LocationEmployee, Location>) employeeMap, context);
         } catch (Exception e) {
             Log.d("Donatrix", e.getMessage());
         }
@@ -103,9 +107,9 @@ public class Database {
         }
     }
 
-    public void registerUser(String username, String password, String name, boolean locked, UserType type, Context context) {
-        if (!userMap.containsKey(username)) {
-            userMap.put(username, new User(username, password, name, locked, type));
+    public void registerUser(User user, Context context) {
+        if (!userMap.containsKey(user.getEmail())) {
+            userMap.put(user.getEmail(), user);
             save(context);
         } else {
             throw new IllegalArgumentException("Username already taken");
@@ -146,8 +150,16 @@ public class Database {
     public List<Location> getLocations() {
         return (ArrayList<Location>) locationMap.values();
     }
-
     public void addItem(Item item, LocationEmployee employee) {
         itemMap.get(employeeMap.get(employee)).add(item);
+    }
+    public User getUser(String username) {
+        return userMap.get(username);
+    }
+    public Location getLocation(LocationEmployee employee) {
+        return employeeMap.get(employee);
+    }
+    public Location getLocationByID(Integer i) {
+        return locationMap.get(i);
     }
 }

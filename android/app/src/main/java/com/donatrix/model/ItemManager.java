@@ -1,6 +1,7 @@
 package com.donatrix.model;
 
-import java.util.ArrrayList;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemManager {
     private List<Item> items;
@@ -16,7 +17,7 @@ public class ItemManager {
         this.items.add(item);
     }
 
-    public Item removeItem(Item item) {
+    public void removeItem(Item item) {
         this.items.remove(item);
     }
 }
