@@ -46,4 +46,11 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
             promise.reject("E_LAYOUT_ERROR", e.getMessage());
         }
     }
+
+    @ReactMethod
+    public void addItem(String username, String sDescription, String fDescription,
+                        double value, ItemCategory category, String comments) {
+        LocationEmployee employee = new LocationEmployee(username);
+        ItemDao.addItem(employee, sDescription, fDescription, value, category, comments, this.getCurrentActivity());
+    }
 }

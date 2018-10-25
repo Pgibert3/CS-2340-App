@@ -25,13 +25,15 @@ import java.util.Scanner;
 
 public class Database {
     private static Database ourInstance;
-    private static HashMap<String, User> userMap;
-    private static HashMap<Integer, Location> locationMap;
-    private static HashMap<Location, ArrayList<Item>> itemMap;
+    private static Map<String, User> userMap;
+    private static Map<Integer, Location> locationMap;
+    private static Map<Location, ArrayList<Item>> itemMap;
+    private static Map<LocationEmployee, Location> employeeMap;
 
     public static final String USER = "USERS";
     public static final String LOC = "LOCATION";
     public static final String INVENTORY = "IMVENTORY";
+    public static final String EMPLOYEE = "EMPLOYEE";
 
     public static Database getInstance(Context context) {
         if (Database.ourInstance != null) {
@@ -64,7 +66,10 @@ public class Database {
                 locationMap = (HashMap<Integer, Location>) is.readObject();
                 break;
             case INVENTORY:
-                itemMap = (HashMap<Location, Item> ) is.readObject();
+                itemMap = (HashMap<Location, ArrayList<Item>> ) is.readObject();
+                break;
+            case EMPLOYEE:
+                employeeMap = (HashMap<LocationEmployee, Location>) is.readObject();
                 break;
         }
 
@@ -77,6 +82,7 @@ public class Database {
             writeFile("users.db", userMap, context);
             writeFile("locations.db", locationMap, context);
             writeFile("items.db", itemMap, context);
+            writeFile("employees.db", employeeMap, context);
         } catch (Exception e) {
             Log.d("Donatrix", e.getMessage());
         }
@@ -87,10 +93,13 @@ public class Database {
             readFile("users.db", USER, context);
             readFile("locations.db", LOC, context);
             readFile("items.db", INVENTORY, context);
+            readFile("employees.db", EMPLOYEE, context);
         } catch (Exception e) {
             Log.d("Donatrix", e.getMessage());
             userMap = new HashMap<>();
             locationMap = new HashMap<>();
+            itemMap = new HashMap<>();
+            employeeMap = new HashMap<>();
         }
     }
 
@@ -134,7 +143,11 @@ public class Database {
         }
     }
 
-    public ArrayList<Location> getLocations() {
+    public List<Location> getLocations() {
         return (ArrayList<Location>) locationMap.values();
+    }
+
+    public void addItem(Item item, LocationEmployee employee) {
+        itemMap.get(employeeMap.get(employee)).add(item);
     }
 }

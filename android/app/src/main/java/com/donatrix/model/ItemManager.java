@@ -3,12 +3,12 @@ package com.donatrix.model;
 import java.util.ArrrayList;
 
 public class ItemManager {
-    private ArrayList<Item> items;
+    private List<Item> items;
 
     public ItemManager() {
         this.items = new ArrayList<>();
     }
-    public ArrayList<Item> getItems() {
+    public List<Item> getItems() {
         return this.items;
     }
 

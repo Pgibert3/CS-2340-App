@@ -3,7 +3,7 @@ package com.donatrix.model;
 public class LocationEmployee extends User {
     Location location;
 
-    public class LocationEmployee(Location location) {
+    public LocationEmployee(Location location) {
         this.location = location;
     }
 

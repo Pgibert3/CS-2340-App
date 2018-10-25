@@ -109,7 +109,7 @@ public class Location implements Serializable {
     }
 
     public void addItem(Item item) {
-        this.inventory.addItem(item);
+        Database.getInstance().addItem(item);
     }
     public void removeItem(Item item) {
         this.inventory.removeItem(item);
