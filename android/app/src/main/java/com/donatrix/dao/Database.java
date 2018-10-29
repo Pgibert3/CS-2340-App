@@ -162,4 +162,16 @@ public class Database {
     public Location getLocationByID(Integer i) {
         return locationMap.get(i);
     }
+    public List<Item> getItemsFromLocation(Location location) {
+        return itemMap.get(location);
+    }
+    public List<Item> getAllItems() {
+        List<Item> items = new ArrayList<>();
+        for (List<Item> list : itemMap.values()) {
+            for (Item item: list) {
+                items.add(item);
+            }
+        }
+        return items;
+    }
 }

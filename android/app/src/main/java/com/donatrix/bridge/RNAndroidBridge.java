@@ -17,6 +17,10 @@ import com.donatrix.model.LocationEmployee;
 import com.donatrix.model.UserType;
 import com.donatrix.model.Location;
 import com.donatrix.dao.ItemDao;
+import com.donatrix.model.Item;
+
+import java.util.List;
+import java.util.ArrayList;
 
 
 
@@ -77,5 +81,39 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
                         double value, ItemCategory category, String comments) {
         User user = UserDao.getUser(username, context);
         ItemDao.addItem((LocationEmployee) user, sDescription, fDescription, value, category, comments, context);
+    }
+
+    public List<Item> getItemByLocation(String name, List<Integer> locations, List<String> categories) {
+        List<Item> itemList = new ArrayList<>();
+        if (locations != null) {
+            for (Integer location : locations) {
+                Location newLocation = LocationDao.getLocationByID(location, context);
+                List<Item> items = ItemDao.getItemsFromLocation(newLocation, context);
+                for (Item item : items) {
+                    itemList.add(item);
+                }
+            }
+        } else {
+            for(Item item: ItemDao.getAllItems(context)) {
+                if (!(itemList.contains(item))) {
+                    itemList.add(item);
+                }
+            }
+        }
+        if (categories != null) {
+            for (Item item : itemList) {
+                if (!(categories.contains(item.getCategory().getCategory()))) {
+                    itemList.remove(item);
+                }
+            }
+        }
+        if (name != null) {
+            for (Item item: itemList) {
+                if (!(item.getsDescription().equals(name))) {
+                    itemList.remove(item);
+                }
+            }
+        }
+        return itemList;
     }
 }

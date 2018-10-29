@@ -7,6 +7,8 @@ import android.content.Context;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.time.Instant;
+import com.donatrix.model.Location;
+import java.util.List;
 
 public class ItemDao {
 
@@ -17,5 +19,11 @@ public class ItemDao {
         Item item = new Item(timestamp, employee.getLocation(), sDescription, fDescription,
                 value, category, comments);
         Database.getInstance(context).addItem(item, employee);
+    }
+    public static List<Item> getItemsFromLocation(Location location, Context context) {
+        return Database.getInstance(context).getItemsFromLocation(location);
+    }
+    public static List<Item> getAllItems(Context context) {
+        return Database.getInstance(context).getAllItems();
     }
 }
