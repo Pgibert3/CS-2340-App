@@ -83,7 +83,7 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
         ItemDao.addItem((LocationEmployee) user, sDescription, fDescription, value, category, comments, context);
     }
 
-    public List<Item> getItemByLocation(String name, List<Integer> locations, List<String> categories) {
+    public List<Item> getItemBySearch(String name, List<Integer> locations, List<String> categories) {
         List<Item> itemList = new ArrayList<>();
         if (locations != null) {
             for (Integer location : locations) {
