@@ -18,9 +18,7 @@ export default class FilterList extends Component {
     constructor(props) {
         super(props);
         /* backing data structure of the FilterList */
-        this.tree = new BooleanTree(
-            this.formatData(this.props.filterData, true)
-            );
+        this.tree = new BooleanTree(this.props.filterData);
 
         this.state = {
             /* the data of the tree */
@@ -30,6 +28,10 @@ export default class FilterList extends Component {
         this.toggleFilter = this.toggleFilter.bind(this);
         this.expandFilter = this.expandFilter.bind(this);
         this.collapseFilter = this.collapseFilter.bind(this);
+    }
+
+    componentDidMount() {
+        console.log(this.tree.data);
     }
 
     render() {
@@ -98,16 +100,15 @@ export default class FilterList extends Component {
 
     toggleFilter(uid) {
         this.tree.toggleNodeBool(uid),
-        this.syncSelectedFilters()
+        this.syncFilterData()
     }
 
     toggleSelectAllFilter(uid) {
-        console.log(this.tree.toggleNodeBool(uid));
         this.tree.toggleNodeBool(uid),
         this.setState({
             filters: this.tree.getNode(uid),
         })
-        this.syncSelectedFilters()
+        this.syncFilterData()
     }
 
      expandFilter(uid) {
@@ -122,58 +123,20 @@ export default class FilterList extends Component {
          }));
      }
 
-     formatData(data, defaultBool) {
-         //Hard coded for now
-         function _createDefaultNode(id, value, defaultBool) {
-             return {id : id, value : value, bool : defaultBool, children : []}
-         }
-
-         let locationChildren = data["Location"].map((f) => (
-             _createDefaultNode(f.toLowerCase(), f, defaultBool)
-         ));
-
-         let categoryChildren = data["Category"].map((f) => (
-             _createDefaultNode(f.toLowerCase(), f, defaultBool)
-         ));
-
-        return [{id : "all", value: "Filters", bool : defaultBool, children : [
-                        {id : "location", value : "Location", bool : defaultBool, children : locationChildren},
-                        {id : "category", value : "Category", bool : defaultBool, children : categoryChildren}
-                ]}];
-     }
-
-     syncSelectedFilters() {
-         console.log(this.tree.getLeavesByBool("location", true));
-         let selectedLocations = [];
-         this.tree.getLeavesByBool("location", true).forEach((node) => {
-             selectedLocations.push(node.id);
-         });
-
-         let selectedCategories = [];
-         this.tree.getLeavesByBool("category", true).forEach((node) => {
-             selectedCategories.push(node.id);
-         });
-
-         let selectedFilters = {
-                 Location : selectedLocations,
-                 Category : selectedCategories,
-             };
-         this.props.syncFilters(selectedFilters);
+     syncFilterData() {
+         this.props.syncFilterData(this.tree.data);
      }
 }
 
 const styles = StyleSheet.create({
     container : {
-        marginHorizontal : 40,
-        marginTop : 0,
-        borderWidth : 1,
-        backgroundColor : '#FFFFFF',
+
     },
     header : {
         flexDirection: 'row',
     },
     flatList : {
-        height : 100,
+        height : "100%",
     },
     seperator : {
         height : 1,

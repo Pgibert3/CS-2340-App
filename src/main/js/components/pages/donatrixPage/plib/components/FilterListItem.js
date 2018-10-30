@@ -26,7 +26,7 @@ export default class FilterListItem extends Component {
         this.state = {
             enabled : this.props.enabled,
         }
-        
+
         this.onCheckPress = this.onCheckPress.bind(this);
         this.onArrowPress = this.onArrowPress.bind(this);
     }
