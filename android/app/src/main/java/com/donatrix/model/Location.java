@@ -1,6 +1,9 @@
 package com.donatrix.model;
 
 import java.io.Serializable;
+import com.donatrix.dao.Database;
+import android.content.Context;
+
 
 public class Location implements Serializable {
     private String name;
@@ -108,9 +111,8 @@ public class Location implements Serializable {
         return website;
     }
 
-    public void addItem(Item item) {
-        item.setLocation(this.Location);
-        this.inventory.addItem(item);
+    public void addItem(Item item, Context context, LocationEmployee employee) {
+        Database.getInstance(context).addItem(item, employee);
     }
 
     public void removeItem(Item item) {

@@ -7,6 +7,8 @@ import com.donatrix.R;
 import com.donatrix.model.Location;
 import com.donatrix.model.User;
 import com.donatrix.model.UserType;
+import com.donatrix.model.Item;
+import com.donatrix.model.LocationEmployee;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -16,16 +18,22 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class Database {
     private static Database ourInstance;
-    private static HashMap<String, User> userMap;
-    private static HashMap<Integer, Location> locationMap;
+    private static Map<String, User> userMap;
+    private static Map<Integer, Location> locationMap;
+    private static Map<Location, ArrayList<Item>> itemMap;
+    private static Map<LocationEmployee, Location> employeeMap;
 
     public static final String USER = "USERS";
     public static final String LOC = "LOCATION";
+    public static final String INVENTORY = "IMVENTORY";
+    public static final String EMPLOYEE = "EMPLOYEE";
 
     public static Database getInstance(Context context) {
         if (Database.ourInstance != null) {
@@ -57,6 +65,12 @@ public class Database {
             case LOC:
                 locationMap = (HashMap<Integer, Location>) is.readObject();
                 break;
+            case INVENTORY:
+                itemMap = (HashMap<Location, ArrayList<Item>> ) is.readObject();
+                break;
+            case EMPLOYEE:
+                employeeMap = (HashMap<LocationEmployee, Location>) is.readObject();
+                break;
         }
 
         is.close();
@@ -65,8 +79,10 @@ public class Database {
 
     private void save(Context context) {
         try {
-            writeFile("users.db", userMap, context);
-            writeFile("locations.db", locationMap, context);
+            writeFile("users.db", (HashMap<String, User>) userMap, context);
+            writeFile("locations.db", (HashMap<Integer, Location>) locationMap, context);
+            writeFile("items.db", (HashMap<Location, ArrayList<Item>>) itemMap, context);
+            writeFile("employees.db", (HashMap<LocationEmployee, Location>) employeeMap, context);
         } catch (Exception e) {
             Log.d("Donatrix", e.getMessage());
         }
@@ -76,16 +92,20 @@ public class Database {
         try {
             readFile("users.db", USER, context);
             readFile("locations.db", LOC, context);
+            readFile("items.db", INVENTORY, context);
+            readFile("employees.db", EMPLOYEE, context);
         } catch (Exception e) {
             Log.d("Donatrix", e.getMessage());
             userMap = new HashMap<>();
             locationMap = new HashMap<>();
+            itemMap = new HashMap<>();
+            employeeMap = new HashMap<>();
         }
     }
 
-    public void registerUser(String username, String password, String name, boolean locked, UserType type, Context context) {
-        if (!userMap.containsKey(username)) {
-            userMap.put(username, new User(username, password, name, locked, type));
+    public void registerUser(User user, Context context) {
+        if (!userMap.containsKey(user.getEmail())) {
+            userMap.put(user.getEmail(), user);
             save(context);
         } else {
             throw new IllegalArgumentException("Username already taken");
@@ -123,7 +143,31 @@ public class Database {
         }
     }
 
-    public HashMap<Integer, Location> getLocations() {
-        return locationMap;
+    public List<Location> getLocations() {
+        return (ArrayList<Location>) locationMap.values();
+    }
+    public void addItem(Item item, LocationEmployee employee) {
+        itemMap.get(employeeMap.get(employee)).add(item);
+    }
+    public User getUser(String username) {
+        return userMap.get(username);
+    }
+    public Location getLocation(LocationEmployee employee) {
+        return employeeMap.get(employee);
+    }
+    public Location getLocationByID(Integer i) {
+        return locationMap.get(i);
+    }
+    public List<Item> getItemsFromLocation(Location location) {
+        return itemMap.get(location);
+    }
+    public List<Item> getAllItems() {
+        List<Item> items = new ArrayList<>();
+        for (List<Item> list : itemMap.values()) {
+            for (Item item: list) {
+                items.add(item);
+            }
+        }
+        return items;
     }
 }

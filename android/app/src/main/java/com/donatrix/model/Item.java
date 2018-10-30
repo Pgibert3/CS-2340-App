@@ -3,10 +3,10 @@ package com.donatrix.model;
 import android.media.Image;
 
 import java.sql.Timestamp;
-import java.awt.image.BufferedImage;
 import com.donatrix.model.*;
+import java.io.Serializable;
 
-public class Item {
+public class Item implements Serializable {
 
     private Timestamp time;
     private Location location;
@@ -15,10 +15,9 @@ public class Item {
     private double value;
     private ItemCategory category;
     private String comments;
-    private BufferedImage image;
 
     public Item(Timestamp time, Location location, String sDescription, String fDescription,
-                double value, ItemCategory category, String comments, BufferedImage image) {
+                double value, ItemCategory category, String comments) {
         this.time = time;
         this.location = location;
         this.sDescription = sDescription;
@@ -26,7 +25,6 @@ public class Item {
         this.value = value;
         this.category = category;
         this.comments = comments;
-        this.image = image;
     }
 
     public Timestamp getTime() {
@@ -83,14 +81,6 @@ public class Item {
 
     public void setComments(String comments) {
         this.comments = comments;
-    }
-
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public void setImage(BufferedImage image) {
-        this.image = image;
     }
 
 }

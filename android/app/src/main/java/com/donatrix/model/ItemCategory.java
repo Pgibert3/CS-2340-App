@@ -1,6 +1,8 @@
 package com.donatrix.model;
 
-public enum ItemCategory {
+import java.io.Serializable;
+
+public enum ItemCategory implements Serializable {
     CLOTHING("Clothing"),
     HAT("Hat"),
     KITCHEN("Kitchen"),

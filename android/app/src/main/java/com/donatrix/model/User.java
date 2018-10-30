@@ -1,6 +1,9 @@
 package com.donatrix.model;
 
 import java.io.Serializable;
+import android.content.Context;
+import com.donatrix.dao.Database;
+
 
 public class User implements Serializable {
 
