@@ -161,7 +161,7 @@ export default class BooleanTree {
     }
 }
 
-class node {
+export class node {
     constructor(id, value, bool, children) {
         //id must be unique in the tree
         this.id = id;

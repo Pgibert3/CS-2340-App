@@ -12,19 +12,19 @@ import CheckBox from './CheckBox';
  * A list item that displays a checkbox on the left and arrow on the right in
  * addition to a left aligned title.
  *
- * @prop uid -- unique id of the ListItem (required string)
- * @prop title -- Title of the filter (optional string; default: "")
- * @prop enabled -- Initial value of the checkbox. (optional bool; default: true)
- * @prop onCheckPress -- Callback for checkbox press (optional func; default: null)
- * @prop onArrowPress -- Callback for arrow press (optional func; default: null)
- * @prop titleStyle -- Additional filter title styling (optional object; default: {})
+ * @param uid {string} unique id of the ListItem
+ * @param title {string} title of the filter
+ * @param checked {bool} state of the checkbox
+ * @param onCheckPress {func} Callback when the checkbox is pressed
+ * @param onArrowPress {func} Callback for when the arrow is pressed
+ * @param titleStyle {object} Additional filter title styling
  */
 export default class FilterListItem extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            enabled : this.props.enabled,
+            checked : this.props.checked,
         }
 
         this.onCheckPress = this.onCheckPress.bind(this);
@@ -35,19 +35,19 @@ export default class FilterListItem extends Component {
         return(
             <View style={styles.container}>
                 <CheckBox
-                        checked={this.state.enabled}
-                        onPress={this.onCheckPress}
+                    checked={this.state.checked}
+                    onPress={this.onCheckPress}
                 />
 
                 <Text style={[
-                        styles.title,
-                        this.props.titleStyle
+                    styles.title,
+                    this.props.titleStyle
                     ]}
                 >{this.props.title}</Text>
 
                 <IconButton
-                        name="arrow-right"
-                        onPress={this.onArrowPress}
+                    name="arrow-right"
+                    onPress={this.onArrowPress}
                 />
             </View>
         );
@@ -55,15 +55,13 @@ export default class FilterListItem extends Component {
 
     /**
     * Called when the checkbox is pressed
-    * Calls passed-in onArrowPress with uid
     */
     onCheckPress() {
         this.props.onCheckPress(this.props.uid)
     }
 
     /**
-     * Called when arrow is pressed
-     * Calls passed-in onArrowPress with uid
+     * Called when the arrow is pressed
      */
     onArrowPress() {
         this.props.onArrowPress(this.props.uid)
@@ -71,34 +69,34 @@ export default class FilterListItem extends Component {
 }
 
 FilterListItem.propTypes = {
-    /* unique id of the ListItem (required string) */
+    /** unique id of the ListItem */
     uid : PropTypes.string.isRequired,
-    /* title of the filter (optional string; default: "") */
+    /** title of the filter */
     title : PropTypes.string,
-    /* Initial value of the checkbox. (optional bool; default: true) */
-    enabled : PropTypes.bool,
-    /* Callback for checkbox press (optional func; default: null) */
+    /** state of the checkbox */
+    checked : PropTypes.bool,
+    /** Callback for when the checkbox is pressed */
     onCheckPress : PropTypes.func,
-    /* Callback for arrow press (optional func; default: null) */
+    /** Callback for when the arrow is pressed */
     onArrowPress : PropTypes.func,
-    /* Additional filter title styling (optional object; default: {}) */
+    /** Additional filter title styling */
     titleStyle : PropTypes.object,
  }
 
 FilterListItem.defaultProps = {
     title : "",
-    enabled : false,
+    checked : false,
     onCheckPress : () => null,
     onArrowPress : () => null,
     titleStyle : {},
 }
 
 const styles = StyleSheet.create({
-    /* styling of the parent View */
+    /** styling of the outermost View */
     container : {
         flexDirection : 'row',
     },
-    /* styling of the filter title */
+    /** Styling for the title of the filter */
     title : {
         flexGrow : 1,
     },

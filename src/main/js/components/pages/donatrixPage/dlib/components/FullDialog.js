@@ -28,6 +28,7 @@ export default class FullDialog extends Component {
 }
 
 const styles = StyleSheet.create({
+    /** Formatting of the outermost View */
     container : {
         alignItems : 'center',
         justifyContent : 'center',
@@ -36,6 +37,7 @@ const styles = StyleSheet.create({
         width : "100%",
         height : "100%",
     },
+    /** Styling for the floating view ontop of the screen */
     dialog : {
         backgroundColor : "#FFFFFF",
         borderWidth : 1,
@@ -44,6 +46,7 @@ const styles = StyleSheet.create({
         width : "85%",
         height : "85%",
     },
+    /** Styling for the blurred View that sits behind the dialog */
     blur : {
         ...this.dialog,
         backgroundColor : "#000000",
@@ -51,5 +54,4 @@ const styles = StyleSheet.create({
         width : "100%",
         height : "100%"
     },
-
 });

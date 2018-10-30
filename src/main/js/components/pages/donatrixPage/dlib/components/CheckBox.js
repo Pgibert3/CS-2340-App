@@ -6,13 +6,8 @@ import {
 import IconButton from './IconButton';
 
 /**
- * A clickable checkbox
- *
- * @prop checked -- default state of the checkbox (optional bool; default: false)
- * @prop size -- size of the checkbox (optional number; default: 25)
- * @prop onPress -- callback called when checkbox is pressed (optional func; default: null)
+ * An IconButton that toggles a checked icon when pressed
  */
-
 export default class CheckBox extends Component {
     constructor(props) {
         super(props);
@@ -33,12 +28,12 @@ export default class CheckBox extends Component {
     render() {
         return(
             <IconButton
-                    name={(this.state.checked)
-                            ? this._checkedIconName
-                            : this._uncheckedIconName
-                    }
-                    size={this.props.size}
-                    onPress={this.onPress}
+                name={(this.state.checked)
+                        ? this._checkedIconName
+                        : this._uncheckedIconName
+                }
+                size={this.props.size}
+                onPress={this.onPress}
             />
         );
     }
@@ -47,21 +42,19 @@ export default class CheckBox extends Component {
      * Toggles the icon and calls the onPress prop
      */
     onPress() {
-        //Toggle state
         this.setState((prevState, props) => ({
             checked : !prevState.checked,
         }));
-        //Call onPress callback
         this.props.onPress();
     }
 }
 
 CheckBox.propTypes = {
-    /* default state of the checkbox (optional bool; default: false) */
+    /** default state of the checkbox */
     checked : PropTypes.bool,
-    /* size of the checkbox (optional number; default: 25) */
+    /** size of the checkbox icon */
     size : PropTypes.number,
-    /* callback called when checkbox is pressed (optional func; default: null) */
+    /** callback called when checkbox is pressed */
     onPress : PropTypes.func,
 }
 
@@ -70,7 +63,3 @@ CheckBox.defaultProps = {
     size : 25,
     onPress : () => null,
 }
-
-const styles = StyleSheet.create({
-
-});

@@ -12,19 +12,21 @@ import CheckBox from './CheckBox';
  * A header for a FilterList that does not scroll. Can render a checkbox or
  * back arrow based on the the prop isChildHeader
  *
- * @prop uid -- unique id of the Header (required string)
- * @prop title -- Title of the filter (optional string; default: "")
- * @prop enabled -- Initial value of the checkbox if applicable. (optional bool; default: true)
- * @prop isChildHeader -- Whether or not the header is for the lower level fitlers. Will render a back arrow if true, otherwise a select all checkbox (option bool; default: false)
- * @prop onActionItemPress -- Callback for left most item press (optional func; default: null)
- * @prop titleStyle -- Additional filter title styling (optional object; default: {})
+ * @param uid {string} unique id of the Header
+ * @param title {string} Title of the filter
+ * @param enabled {bool} Initial value of the checkbox if applicable
+ * @param isChildHeader {bool} Whether or not the header is for the lower level
+ *                      fitlers. Will render a back arrow if true, otherwise a
+ *                      select all checkbox
+ * @param onActionItemPress {func} Callback for left most item press
+ * @param titleStyle {object} Additional filter title styling
  */
 export default class FilterListHeader extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            /* state of the check box */
+            /** If true, the filter is considered to be selected */
             enabled : this.props.enabled,
         }
 
@@ -36,20 +38,20 @@ export default class FilterListHeader extends Component {
             <View style={styles.container}>
                 {(this.props.isChildHeader)
                         ? <IconButton
-                                name="arrow-left"
-                                onPress={this.onActionItemPress}
+                            name="arrow-left"
+                            onPress={this.onActionItemPress}
                             />
                         : <View />
                 }
                 <Text style={[styles.title, this.props.titleStyle]}>
-                        {this.props.title}
+                    {this.props.title}
                 </Text>
             </View>
         );
     }
 
     /**
-    * Called when the rendered item on the left is pressed
+    * Called when the arrow/checkbox is pressed
     */
     onActionItemPress() {
         this.props.onActionItemPress(this.props.uid);
@@ -57,17 +59,20 @@ export default class FilterListHeader extends Component {
 }
 
 FilterListHeader.propTypes = {
-    /* unique id of the Header (required string) */
+    /** unique id of the Header */
     uid : PropTypes.string.isRequired,
-    /* title of the filter (optional string; default: "") */
+    /** title of the filter */
     title : PropTypes.string,
-    /* Initial value of the checkbox. (optional bool; default: true) */
+    /** The default value of a filter's enabled state */
     enabled : PropTypes.bool,
-    /* Whether or not the header is for the lower level fitlers. Will render a back arrow if true, otherwise a select all checkbox (option bool; default: false) */
+    /**
+     * Whether or not the header is for the lower level fitlers
+     * Will render a back arrow if true, otherwise a select all checkbox
+     * */
     isChildHeader : PropTypes.bool,
-    /* Callback for left most item press (optional func; default: null) */
+    /** Callback for checkbox/arrow press */
     onActionItemPress : PropTypes.func,
-    /* Additional filter title styling (optional object; default: {}) */
+    /** Additional filter title styling */
     titleStyle : PropTypes.object,
 }
 
@@ -80,11 +85,11 @@ FilterListHeader.defaultProps = {
 }
 
 const styles = StyleSheet.create({
-    /* styling of the parent View */
+    /*8 styling of the outermost View */
     container : {
         flexDirection : 'row',
     },
-    /* styling of the filter title */
+    /** styling of the filter title */
     title : {
         flexGrow : 1,
     },
