@@ -48,6 +48,10 @@ public class Database {
         load(context);
     }
 
+    public void addLocationEmployee(User user, Location location) {
+        employeeMap.put((LocationEmployee) user, location);
+    }
+
     private void writeFile(String filename, HashMap map, Context context) throws Exception {
         FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
         ObjectOutputStream os = new ObjectOutputStream(fos);
