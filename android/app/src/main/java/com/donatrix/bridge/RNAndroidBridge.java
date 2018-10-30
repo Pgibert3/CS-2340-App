@@ -53,6 +53,7 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
                 Location location = LocationDao.getLocationByID(id, context);
                 User user = new LocationEmployee(email, password, name, location);
                 UserDao.registerUser(user, context);
+                LocationDao.addLocationEmployee(user, location, context);
                 promise.resolve("SUCCESS");
             }
         } catch (Exception e) {
