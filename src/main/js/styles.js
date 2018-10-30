@@ -43,7 +43,8 @@ export const VIEW_STYLES = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'flex-start',
         marginVertical: DEFAULT_SPACING.MARGIN_VERTICAL,
-        marginHorizontal: DEFAULT_SPACING.MARGIN_HORIZONTAL,
+        paddingHorizontal: DEFAULT_SPACING.MARGIN_HORIZONTAL,
+        width: '100%'
     }
 
 });
@@ -81,6 +82,9 @@ export const FORM_TEXT_INPUT_STYLES = StyleSheet.create({
     },
     inputField: {
         fontSize: 18,
+        borderColor: 'green',
+        borderWidth: 2,
+        width: '100%'
     }
 });
 

@@ -1,10 +1,10 @@
 package com.donatrix.model;
 
-import android.media.Image;
-
 import java.sql.Timestamp;
+import com.donatrix.model.*;
+import java.io.Serializable;
 
-public class Item {
+public class Item implements Serializable {
 
     private Timestamp time;
     private Location location;
@@ -13,10 +13,9 @@ public class Item {
     private double value;
     private ItemCategory category;
     private String comments;
-    private Image image;
 
     public Item(Timestamp time, Location location, String sDescription, String fDescription,
-                double value, ItemCategory category, String comments, Image image) {
+                double value, ItemCategory category, String comments) {
         this.time = time;
         this.location = location;
         this.sDescription = sDescription;
@@ -24,7 +23,6 @@ public class Item {
         this.value = value;
         this.category = category;
         this.comments = comments;
-        this.image = image;
     }
 
     public Timestamp getTime() {
@@ -81,14 +79,6 @@ public class Item {
 
     public void setComments(String comments) {
         this.comments = comments;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
     }
 
 }

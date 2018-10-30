@@ -1,14 +1,17 @@
 package com.donatrix.model;
 
-/**
- * Created by parkerharris on 10/11/18.
- */
+import android.content.Context;
 
-public class Admin {
+
+public class Admin extends User {
 
     private String name;
     private String email;
     private String password;
+
+    public Admin(String email, String password, String name) {
+        super(email, password, name, false, UserType.ADMIN);
+    }
 
     public String getName() {
         return name;

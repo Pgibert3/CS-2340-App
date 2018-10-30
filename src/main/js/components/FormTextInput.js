@@ -26,6 +26,7 @@ export default class FormTextInput extends Component {
                     onChangeText={this.props.onChangeText}
                     secureTextEntry={this.props.secureTextEntry}
                     style={FORM_TEXT_INPUT_STYLES.inputField}
+                    underlineColorAndroid='green'
                 />
             </View>
         );
