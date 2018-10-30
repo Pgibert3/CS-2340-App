@@ -5,7 +5,6 @@ import android.content.Context;
 import com.donatrix.model.UserType;
 import com.donatrix.model.User;
 
-
 public class UserDao {
     public static void registerUser(User user, Context context) throws IllegalArgumentException {
         Database.getInstance(context).registerUser(user, context);

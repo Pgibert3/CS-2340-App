@@ -22,7 +22,7 @@ export default class LoginPage extends Component {
         this.state = {
             usernameInput: '',
             passwordInput: '',
-            error: ''
+            error: '',
         };
 
         this.onFieldUpdate = this.onFieldUpdate.bind(this); //needed with arrow op?
