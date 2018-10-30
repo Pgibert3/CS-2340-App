@@ -10,7 +10,7 @@ import java.util.HashMap;
 //    public static List<Location> getLocations(Context context) {
 
 public class LocationDao {
-    public static HashMap<Integer, Location> getLocations(Context context) {
+    public static List<Location> getLocations(Context context) {
         return Database.getInstance(context).getLocations();
     }
     public static Location getLocationByID(Integer i, Context context) {

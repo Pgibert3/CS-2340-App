@@ -79,7 +79,7 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
 //                WritableMap tempMap = Arguments.createMap();
 //                Location temp = originalMap.get(i);
 
-            List<Location> locationList = LocationDao.getLocations(this.getCurrentActivity());
+            List<Location> locationList = LocationDao.getLocations(context);
             WritableArray arr = Arguments.createArray();
             for (Location temp: locationList) {
                 WritableMap tempMap = Arguments.createMap();
@@ -104,6 +104,29 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
             }
             promise.resolve(arr);
 
+        } catch (Exception e) {
+            promise.reject("E_LAYOUT_ERROR", e.getMessage());
+        }
+    }
+
+    public void getItems(Promise promise) {
+        try {
+            List<Item> itemList = ItemDao.getAllItems(context);
+            WritableArray arr = Arguments.createArray();
+            for (Item temp : itemList) {
+                WritableMap tempMap = Arguments.createMap();
+
+                tempMap.putString("timestamp", temp.getTime().toString());
+                tempMap.putString("location", temp.getLocation().getName());
+                tempMap.putString("sDescription", temp.getsDescription());
+                tempMap.putString("fDescription", temp.getfDescription());
+                tempMap.putString("value", "" + temp.getValue());
+                tempMap.putString("category", temp.getCategory().getCategory());
+                tempMap.putString("comments", temp.getComments());
+
+                arr.pushMap(tempMap);
+            }
+            promise.resolve(arr);
         } catch (Exception e) {
             promise.reject("E_LAYOUT_ERROR", e.getMessage());
         }

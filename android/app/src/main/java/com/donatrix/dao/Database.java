@@ -147,10 +147,11 @@ public class Database {
 
     public List<Location> getLocations() {
         return (ArrayList<Location>) locationMap.values();
-
-    public HashMap<Integer, Location> getLocations() {
-        return locationMap;
     }
+
+//    public Map<Integer, Location> getLocations() {
+//        return locationMap;
+//    }
     public void addItem(Item item, LocationEmployee employee) {
         itemMap.get(employeeMap.get(employee)).add(item);
     }
