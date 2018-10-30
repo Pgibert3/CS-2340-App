@@ -3,8 +3,6 @@ package com.donatrix.dao;
 import android.content.Context;
 
 import com.donatrix.model.Location;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 

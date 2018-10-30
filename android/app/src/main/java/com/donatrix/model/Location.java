@@ -114,8 +114,14 @@ public class Location implements Serializable {
     public void addItem(Item item, Context context, LocationEmployee employee) {
         Database.getInstance(context).addItem(item, employee);
     }
+
     public void removeItem(Item item) {
         this.inventory.removeItem(item);
+    @Override
+    public String toString() {
+        return String.format("%s | %s | %s | %s | %s | %s | %s | %s | %s | %s", name, latitude, longitude, address, city, state, zip, locationType.getType(), number, website);
+    }
+
     @Override
     public String toString() {
         return String.format("%s | %s | %s | %s | %s | %s | %s | %s | %s | %s", name, latitude, longitude, address, city, state, zip, locationType.getType(), number, website);

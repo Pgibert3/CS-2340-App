@@ -8,6 +8,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 
 import com.donatrix.model.ItemCategory;
@@ -71,11 +72,17 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getLocations(Promise promise) {
         try {
-            HashMap<Integer, Location> originalMap = LocationDao.getLocations(this.getCurrentActivity());
-            WritableMap map = Arguments.createMap();
-            for (Integer i: originalMap.keySet()) {
+
+//            HashMap<Integer, Location> originalMap = LocationDao.getLocations(this.getCurrentActivity());
+//            WritableMap map = Arguments.createMap();
+//            for (Integer i: originalMap.keySet()) {
+//                WritableMap tempMap = Arguments.createMap();
+//                Location temp = originalMap.get(i);
+
+            List<Location> locationList = LocationDao.getLocations(this.getCurrentActivity());
+            WritableArray arr = Arguments.createArray();
+            for (Location temp: locationList) {
                 WritableMap tempMap = Arguments.createMap();
-                Location temp = originalMap.get(i);
 
                 tempMap.putString("name", temp.getName());
                 tempMap.putString("latitude", temp.getLatitude());
@@ -88,9 +95,15 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
                 tempMap.putString("number", temp.getNumber());
                 tempMap.putString("website", temp.getWebsite());
 
-                map.putMap(i.toString(), tempMap);
+
+//                map.putMap(i.toString(), tempMap);
+//            }
+//            promise.resolve(map);
+
+                arr.pushMap(tempMap);
             }
-            promise.resolve(map);
+            promise.resolve(arr);
+
         } catch (Exception e) {
             promise.reject("E_LAYOUT_ERROR", e.getMessage());
         }
