@@ -26,6 +26,7 @@ export default class RegisterPage extends Component {
             pass: '',
             confPass: '',
             userType: 'USER',
+            locId: 0
         };
 
         this.onFieldUpdate = this.onFieldUpdate.bind(this); //needed with arrow op?
@@ -68,6 +69,10 @@ export default class RegisterPage extends Component {
                     <Picker.Item label="Manager" value={UserType.MANAGER} />
                     <Picker.Item label="User" value={UserType.USER} />
                 </Picker>
+                <FormTextInput
+                    title="Location ID"
+                    onChangeText={(t) => this.onFieldUpdate(Number.parseInt(t, 10), "locId")}
+                />
 
                 {/* buttons */}
                 <View style={VIEW_STYLES.defaultRow}>
@@ -98,10 +103,11 @@ export default class RegisterPage extends Component {
             email,
             pass,
             confPass,
-            userType
+            userType,
+            locId
         } = this.state;
 
-        RNAndroidBridge.registerUser(email, pass, `${fname} ${lname}`, false, userType)
+        RNAndroidBridge.registerUser(email, pass, `${fname} ${lname}`, false, userType, locId)
         .then(response => {
             if (response === 'SUCCESS') {
                 Alert.alert("Success", "Registration Successful", [{text: 'Login', onPress: () => {this.props.navigation.navigate('Login');}}]);

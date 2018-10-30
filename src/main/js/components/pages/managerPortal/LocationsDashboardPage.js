@@ -18,13 +18,11 @@ export default class LocationsDashboardPage extends Component {
      */
     generateLocationTabs(locations) {
         const tabs = [];
-        const createTab = prop => {
-            return <LocationTab key={Number.parseInt(prop)} title={locations[prop].name} onPress={() => this.onLocationPress(prop)} />;
+        const createTab = index => {
+            return <LocationTab key={Number.parseInt(index)} title={locations[index].name} onPress={() => this.onLocationPress(index)} />;
         };
-        for (const prop in locations) {
-            if (locations.hasOwnProperty(prop)) {
-                tabs.push(createTab(prop));
-            }
+        for (let i = 0; i < locations.length; i += 1) {
+            tabs.push(createTab(i));
         }
         return tabs;
     }
@@ -62,22 +60,17 @@ export default class LocationsDashboardPage extends Component {
 
     componentDidMount() {
         RNAndroidBridge.getLocations()
-            .then(map => {
-                const tabs = this.generateLocationTabs(map);
-                this.setState({locations: map, locationTabs: tabs});
+            .then(arr => {
+                const tabs = this.generateLocationTabs(arr);
+                this.setState({locations: arr, locationTabs: tabs});
             })
             .catch(err => {
-                Alert.alert("Error", err);
+                Alert.alert("Error", JSON.stringify(err));
             })
     }
 
-    /**
-     * Handler for when a location is pressed
-     *
-     * @param locationID a unique String identifying the location pressed
-     */
-    onLocationPress(locationID) {
-        const location = this.state.locations[locationID];
+    onLocationPress(index) {
+        const location = this.state.locations[index];
         const locationDetails = LocationsDashboardPage.generateLocationDetails(location);
         this.setState({viewDetails: true, locationDetails});
     }
