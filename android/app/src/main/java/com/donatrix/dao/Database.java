@@ -146,7 +146,7 @@ public class Database {
     }
 
     public List<Location> getLocations() {
-        return (ArrayList<Location>) locationMap.values();
+        return new ArrayList<>(locationMap.values());
     }
 
 //    public Map<Integer, Location> getLocations() {

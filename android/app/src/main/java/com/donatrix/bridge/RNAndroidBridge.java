@@ -14,6 +14,8 @@ import com.facebook.react.bridge.WritableMap;
 import com.donatrix.model.ItemCategory;
 import com.donatrix.model.LocationEmployee;
 import android.content.Context;
+import android.util.Log;
+
 import com.donatrix.model.User;
 import com.donatrix.model.Admin;
 import com.donatrix.model.LocationEmployee;
@@ -40,22 +42,25 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void registerUser(String email, String password, String name, boolean locked, String type, Integer id, Promise promise) {
+        Log.d("Donatrix", "Start");
         try {
-            if (type == "USER") {
+            if (type.equals("USER")) {
                 User user = new User(email, password, name, locked, UserType.USER);
                 UserDao.registerUser(user, context);
                 promise.resolve("SUCCESS");
-            } else if (type == "ADMIN") {
+            } else if (type.equals("ADMIN")) {
                 User user = new Admin(email, password, name);
                 UserDao.registerUser(user, context);
                 promise.resolve("SUCCESS");
-            } else if (type == "LOCATION_EMPLOYEE") {
+            } else if (type.equals("LOCATION_EMPLOYEE")) {
+                Log.d("Donatrix", "kinda working");
                 Location location = LocationDao.getLocationByID(id, context);
                 User user = new LocationEmployee(email, password, name, location);
                 UserDao.registerUser(user, context);
                 promise.resolve("SUCCESS");
             }
         } catch (Exception e) {
+            Log.d("Donatrix", e.getMessage(), e);
             promise.reject("E_LAYOUT_ERROR", e.getMessage());
         }
     }
@@ -65,6 +70,7 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
         try {
             promise.resolve(UserDao.checkRegisteredUser(email, password, context));
         } catch (Exception e) {
+            Log.d("Donatrix", e.getMessage(), e);
             promise.reject("E_LAYOUT_ERROR", e.getMessage());
         }
     }
@@ -72,13 +78,6 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getLocations(Promise promise) {
         try {
-
-//            HashMap<Integer, Location> originalMap = LocationDao.getLocations(this.getCurrentActivity());
-//            WritableMap map = Arguments.createMap();
-//            for (Integer i: originalMap.keySet()) {
-//                WritableMap tempMap = Arguments.createMap();
-//                Location temp = originalMap.get(i);
-
             List<Location> locationList = LocationDao.getLocations(context);
             WritableArray arr = Arguments.createArray();
             for (Location temp: locationList) {
@@ -95,16 +94,11 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
                 tempMap.putString("number", temp.getNumber());
                 tempMap.putString("website", temp.getWebsite());
 
-
-//                map.putMap(i.toString(), tempMap);
-//            }
-//            promise.resolve(map);
-
                 arr.pushMap(tempMap);
             }
             promise.resolve(arr);
-
         } catch (Exception e) {
+            Log.d("Donatrix", e.getMessage(), e);
             promise.reject("E_LAYOUT_ERROR", e.getMessage());
         }
     }
@@ -128,6 +122,7 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
             }
             promise.resolve(arr);
         } catch (Exception e) {
+            Log.d("Donatrix", e.getMessage(), e);
             promise.reject("E_LAYOUT_ERROR", e.getMessage());
         }
     }
