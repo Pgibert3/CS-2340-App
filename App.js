@@ -10,6 +10,7 @@ import WelcomePage from './src/main/js/components/pages/welcomePage/WelcomePage'
 import LoginPage from './src/main/js/components/pages/loginPage/LoginPage';
 import RegisterPage from './src/main/js/components/pages/registerPage/RegisterPage';
 import DonatrixPage from './src/main/js/components/pages/donatrixPage/DonatrixPage';
+import LocationsDashboardPage from './src/main/js/components/pages/managerPortal/LocationsDashboardPage';
 
 
 const store = createStore(rootReducer);
@@ -20,6 +21,7 @@ const RootStack = createStackNavigator(
         Login: LoginPage,
         Register: RegisterPage,
         Donatrix: DonatrixPage,
+        Location: LocationsDashboardPage
     },
     {
         initialRouteName: 'Welcome',

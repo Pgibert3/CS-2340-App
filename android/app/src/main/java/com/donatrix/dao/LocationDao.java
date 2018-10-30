@@ -4,10 +4,10 @@ import android.content.Context;
 
 import com.donatrix.model.Location;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class LocationDao {
-    public static ArrayList<Location> getLocations(Context context) {
+    public static HashMap<Integer, Location> getLocations(Context context) {
         return Database.getInstance(context).getLocations();
     }
 }

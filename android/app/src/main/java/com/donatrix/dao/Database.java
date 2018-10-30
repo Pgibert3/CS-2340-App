@@ -1,5 +1,3 @@
-//if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
-        //parse("File Header.java")
 package com.donatrix.dao;
 
 import android.content.Context;
@@ -11,7 +9,6 @@ import com.donatrix.model.User;
 import com.donatrix.model.UserType;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -20,7 +17,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Scanner;
 
 
 public class Database {
@@ -127,7 +123,7 @@ public class Database {
         }
     }
 
-    public ArrayList<Location> getLocations() {
-        return (ArrayList<Location>) locationMap.values();
+    public HashMap<Integer, Location> getLocations() {
+        return locationMap;
     }
 }

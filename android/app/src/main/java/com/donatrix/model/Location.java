@@ -112,7 +112,13 @@ public class Location implements Serializable {
         item.setLocation(this.Location);
         this.inventory.addItem(item);
     }
+
     public void removeItem(Item item) {
         this.inventory.removeItem(item);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s | %s | %s | %s | %s | %s | %s | %s | %s | %s", name, latitude, longitude, address, city, state, zip, locationType.getType(), number, website);
     }
 }

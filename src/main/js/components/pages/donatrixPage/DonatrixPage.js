@@ -15,6 +15,7 @@ export default class DonatrixPage extends Component {
         return (
           <View>
               <Text text='Welcome to the Donatrix' />
+              <Button title='Location Dashboard' onPress={() => this.props.navigation.navigate('Location')} />
               <Button
                   title='Log out'
                   onPress={() => this.props.navigation.navigate('Welcome')}
