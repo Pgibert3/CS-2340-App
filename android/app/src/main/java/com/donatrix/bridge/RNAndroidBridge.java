@@ -31,6 +31,7 @@ import java.util.HashMap;
 
 public class RNAndroidBridge extends ReactContextBaseJavaModule {
     Context context = this.getCurrentActivity();
+    String user;
     public RNAndroidBridge(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -68,6 +69,7 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void checkRegisteredUser(String email, String password, Promise promise) {
         try {
+            this.user = email;
             promise.resolve(UserDao.checkRegisteredUser(email, password, context));
         } catch (Exception e) {
             Log.d("Donatrix", e.getMessage(), e);
@@ -103,6 +105,7 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
         }
     }
 
+    @ReactMethod
     public void getItems(Promise promise) {
         try {
             List<Item> itemList = ItemDao.getAllItems(context);
@@ -129,10 +132,10 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
 
     //Paul Look Here
     @ReactMethod
-    public void addItem(String username, String sDescription, String fDescription,
-                        double value, ItemCategory category, String comments) {
-        User user = UserDao.getUser(username, context);
-        ItemDao.addItem((LocationEmployee) user, sDescription, fDescription, value, category, comments, context);
+    public void addItem(String sDescription, String fDescription,
+                        double value, ItemCategory category/*, String comments*/) {
+        User user = UserDao.getUser(this.user, context);
+        ItemDao.addItem((LocationEmployee) user, sDescription, fDescription, value, category, ""/*comments*/, context);
     }
 
     //Paul Look Here
