@@ -34,7 +34,7 @@ export default class DonatrixPage extends Component {
              *   },
              * ... ]
              */
-            filterData : this.formatToNestedBoolean({
+            filterData : this.formatToBooleanStructure({
                     Location : ["CLT", "ATL", "RCH"],
                     Category : ["A", "B", "C"]}
                     , true), //Hard coded data for now
@@ -59,6 +59,10 @@ export default class DonatrixPage extends Component {
         this.syncFilterData = this.syncFilterData.bind(this);
         this.toggleItemList = this.toggleItemList.bind(this);
         this.search = this.search.bind(this);
+    }
+
+    ComponentWillMount() {
+        this.loadFilterData()
     }
 
     render() {
@@ -123,20 +127,56 @@ export default class DonatrixPage extends Component {
 
     /**
      * Runs a search. Is called whenever the user submits text in the Toolbar
+     *
+     * @param title {string} the title of an item to search for
      */
-    search() {
-        //Currently hardcoded to return dummy data
-        this.setState({
-            foundItems : [
-                {id : "i1", title : "IONE"},
-                {id : "i2", title : "ITWO"},
-                {id : "i3", title : "ITHREE"},
-                {id : "i4", title : "IFOUR"},
-            ]
-        });
+    search(title) {
+        let filters = this.getSelectedFilters();
+        //filters = {
+        //    Locations : ["L1", "L2", ...], Categories : ["C1", "C2", ...],
+        // };
+
+        let foundItems = {};
+
+        //TODO: Implement the following comment:
+        /*
+         *      if (title === "") {
+         *           title = <any string>;
+         *      }
+         *
+         *       let foundItems = getMatchingItemsFromBackend(title, filters);
+         *
+         *    see this.state.foundItems to see the needed format of the
+         *    foundItems object to return from getMatchingItemsFromBackend
+         */
+         //DONE
+
+         this.setState({
+             foundItems : foundItems
+         });
 
         this.toggleItemList();
     }
+
+    /**
+     * Fetches all possible filters from the backend and formats the data into
+     * BooleanTree structure
+     */
+     loadFilterData() {
+         let filtersFromBackend = {};
+
+         //TODO: Implement the following comment:
+         /* filtersFromBackend = {
+                                   Location : ["loc1", "loc2", ...],
+                                   Category : ["cat1", "cat2", ...]
+                                 }
+         */
+         //DONE
+
+         this.setState({
+             filterData: this.formatToBooleanStructure(filtersFromBackend),
+         })
+     }
 
     /**
      * Formats data into BooleanTree Structure for use in FilterList
@@ -151,7 +191,7 @@ export default class DonatrixPage extends Component {
      *         nodes to true, and names the top level node "all" with value
      *         "Filters"
      */
-    formatToNestedBoolean(data, defaultBool) {
+    formatToBooleanStructure(data, defaultBool) {
         //Hard coded for now
         function _createDefaultNode(id, value, defaultBool) {
             return {id : id, value : value, bool : defaultBool, children : []}

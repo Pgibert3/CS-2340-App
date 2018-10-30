@@ -2,6 +2,8 @@ package com.donatrix.bridge;
 
 import com.donatrix.dao.LocationDao;
 import com.donatrix.dao.UserDao;
+import com.donatrix.model.Location;
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -69,8 +71,26 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void getLocations(Promise promise) {
         try {
-            LocationDao.getLocations(this.getCurrentActivity());
-            
+            HashMap<Integer, Location> originalMap = LocationDao.getLocations(this.getCurrentActivity());
+            WritableMap map = Arguments.createMap();
+            for (Integer i: originalMap.keySet()) {
+                WritableMap tempMap = Arguments.createMap();
+                Location temp = originalMap.get(i);
+
+                tempMap.putString("name", temp.getName());
+                tempMap.putString("latitude", temp.getLatitude());
+                tempMap.putString("longitude", temp.getLongitude());
+                tempMap.putString("address", temp.getAddress());
+                tempMap.putString("city", temp.getCity());
+                tempMap.putString("state", temp.getState());
+                tempMap.putString("zip", temp.getZip());
+                tempMap.putString("locationType", temp.getLocationType().getType());
+                tempMap.putString("number", temp.getNumber());
+                tempMap.putString("website", temp.getWebsite());
+
+                map.putMap(i.toString(), tempMap);
+            }
+            promise.resolve(map);
         } catch (Exception e) {
             promise.reject("E_LAYOUT_ERROR", e.getMessage());
         }
