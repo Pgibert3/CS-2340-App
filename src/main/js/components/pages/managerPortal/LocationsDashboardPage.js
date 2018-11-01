@@ -117,8 +117,12 @@ export default class LocationsDashboardPage extends Component {
 
     static generateItems(items) {
         const texts = [];
+        const alertDetails = index => {
+            const item = items[index];
+            Alert.alert(item.sDescription, `${item.fDescription}\n${item.category}\n$${Number(item.value).toFixed(2)}`, [{text: 'OK'}]);
+        };
         const createText = index => {
-            return <Text key={index} text={items[index].sDescription} />;
+            return <Button key={index} title={items[index].sDescription} onPress={() => alertDetails(index)} />;
         };
         for (let i = 0; i < items.length; i += 1) {
             texts.push(createText(i));

@@ -27,7 +27,7 @@ export default class RegisterPage extends Component {
             confPass: '',
             userType: 'USER',
             locations: [],
-            location: 0
+            location: 1
         };
 
         this.onFieldUpdate = this.onFieldUpdate.bind(this); //needed with arrow op?
