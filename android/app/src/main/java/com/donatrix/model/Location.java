@@ -6,6 +6,7 @@ import android.content.Context;
 
 
 public class Location implements Serializable {
+    private int key;
     private String name;
     private String latitude;
     private String longitude;
@@ -19,6 +20,7 @@ public class Location implements Serializable {
     private ItemManager inventory;
 
     public Location(String[] info) {
+        this.key = Integer.parseInt(info[0]);
         this.setName(info[1]);
         this.setLatitude(info[2]);
         this.setLongitude(info[3]);
@@ -29,6 +31,10 @@ public class Location implements Serializable {
         this.setLocationType(LocationType.valueOf(info[8].replace(" ", "").toUpperCase()));
         this.setNumber(info[9]);
         this.setWebsite(info[10]);
+    }
+
+    public int getKey() {
+        return key;
     }
 
     public void setName(String name) {

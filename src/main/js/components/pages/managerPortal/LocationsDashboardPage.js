@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
-import {Alert, ScrollView, View} from 'react-native';
+import {Alert, Picker, ScrollView, View} from 'react-native';
 import Button from '../../Button';
 import RNAndroidBridge from '../../../utils/AndroidBridge';
 import Text from '../../Text';
 import FormTextInput from "../../FormTextInput";
+import UserType from '../../../utils/UserType';
+import ItemCategory from '../../../utils/ItemCategory';
 
 export default class LocationsDashboardPage extends Component {
 
@@ -60,14 +62,16 @@ export default class LocationsDashboardPage extends Component {
             sdesc: '',
             fdesc: '',
             value: 0,
-            cat: ''
+            cat: ItemCategory.CLOTHING,
+            user: {}
         };
 
         this.generateLocationTabs = this.generateLocationTabs.bind(this);
         this.onLocationPress = this.onLocationPress.bind(this);
         this.showItems = this.showItems.bind(this);
-        this.temp = this.temp.bind(this);
+        this.addItem = this.addItem.bind(this);
         this.onFieldUpdate = this.onFieldUpdate.bind(this);
+        this.getItems = this.getItems.bind(this);
     }
 
     componentDidMount() {
@@ -80,13 +84,29 @@ export default class LocationsDashboardPage extends Component {
                 Alert.alert("Error", JSON.stringify(err));
             });
 
-        RNAndroidBridge.getItems()
-            .then(arr => {
-                this.setState({allItems: arr});
+        this.getItems();
+
+        RNAndroidBridge.getCurrentUser()
+            .then(user => {
+                this.setState({user});
             })
             .catch(err => {
                 Alert.alert("Error", JSON.stringify(err));
-            })
+            });
+    }
+
+    getItems() {
+        return new Promise((resolve, reject) => {
+            RNAndroidBridge.getItems()
+                .then(arr => {
+                    this.setState({allItems: arr});
+                    resolve();
+                })
+                .catch(err => {
+                    Alert.alert("Error", JSON.stringify(err));
+                    reject(err);
+                });
+        });
     }
 
     onLocationPress(index) {
@@ -107,22 +127,31 @@ export default class LocationsDashboardPage extends Component {
     }
 
     showItems() {
-        const {allItems, currentLocation} = this.state;
-        let items = [];
-        for (let i = 0; i < allItems.length; i += 1) {
-            if (allItems[i].location === currentLocation.name) {
-                items.push(allItems[i]);
-            }
-        }
-        items = LocationsDashboardPage.generateItems(items);
-        this.setState({viewDetails: false, viewItems: true, locationItems: items});
+        this.getItems()
+            .then(() => {
+                const {allItems, currentLocation} = this.state;
+                let items = [];
+                for (let i = 0; i < allItems.length; i += 1) {
+                    if (allItems[i].location === currentLocation.name) {
+                        items.push(allItems[i]);
+                    }
+                }
+                items = LocationsDashboardPage.generateItems(items);
+                this.setState({viewDetails: false, viewItems: true, locationItems: items});
+            });
     }
 
-    temp() {
-        const {allItems, sdesc, fdesc, value, cat, currentLocation} = this.state;
-        allItems.push({location: currentLocation.name, sDescription: sdesc, fdesc, value, cat});
-        this.setState({addItem: false, allItems});
-        this.showItems();
+    addItem() {
+        const {sdesc, fdesc, value, cat} = this.state;
+        RNAndroidBridge.addItem(sdesc, fdesc, value, cat)
+            .then(() => {
+                this.setState({addItem: false});
+                this.showItems();
+            })
+            .catch(err => {
+                Alert.alert("Error", JSON.stringify(err));
+                reject(err);
+            });
     }
 
     onFieldUpdate(t, field) {
@@ -132,7 +161,7 @@ export default class LocationsDashboardPage extends Component {
     }
 
     render() {
-        const {viewDetails, locationDetails, locationTabs, viewItems, locationItems, addItem, sdesc, fdesc, value, cat} = this.state;
+        const {viewDetails, locationDetails, locationTabs, viewItems, locationItems, addItem, user, currentLocation} = this.state;
         return(
             <View>
                 {viewDetails ? (
@@ -156,15 +185,25 @@ export default class LocationsDashboardPage extends Component {
                                 title="Value"
                                 onChangeText={(t) => this.onFieldUpdate(Number.parseInt(t, 10), "value")}
                             />
-                            <FormTextInput
-                                title="Category"
-                                onChangeText={(t) => this.onFieldUpdate(t, "cat")}
-                            />
-                            <Button title="Add" onPress={this.temp} />
+                            <Picker
+                                selectedValue={this.state.cat}
+                                style={{ height: 50, width: 200 }}
+                                onValueChange={cat => this.setState({cat})}>
+                                <Picker.Item label="Clothing" value={ItemCategory.CLOTHING} />
+                                <Picker.Item label="Hat" value={ItemCategory.HAT} />
+                                <Picker.Item label="Kitchen" value={ItemCategory.KITCHEN} />
+                                <Picker.Item label="Electronics" value={ItemCategory.ELECTRONICS} />
+                                <Picker.Item label="Household" value={ItemCategory.HOUSEHOLD} />
+                                <Picker.Item label="Other" value={ItemCategory.OTHER} />
+                            </Picker>
+                            <Button title="Add" onPress={this.addItem} />
+                            <Button title="Cancel" onPress={() => this.setState({addItem: false})} />
                         </View>
                         ) : (
                         <View>
-                            <Button title="Add Item" onPress={() => this.setState({addItem: true})} />
+                            {user && user.userType === UserType.LOCATION_EMPLOYEE && user.locationKey === currentLocation.key ? (
+                                <Button title="Add Item" onPress={() => this.setState({addItem: true})} />
+                            ) : <Text/>}
                             <Button title="Back" onPress={() => this.setState({viewItems: false, viewDetails: true})} />
                             {locationItems}
                         </View>)

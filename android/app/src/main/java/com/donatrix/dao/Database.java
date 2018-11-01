@@ -157,7 +157,12 @@ public class Database {
 //        return locationMap;
 //    }
     public void addItem(Item item, LocationEmployee employee) {
-        itemMap.get(employeeMap.get(employee)).add(item);
+        ArrayList<Item> items = itemMap.get(employeeMap.get(employee));
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+        items.add(item);
+        itemMap.put(employeeMap.get(employee), items);
     }
     public User getUser(String username) {
         return userMap.get(username);
