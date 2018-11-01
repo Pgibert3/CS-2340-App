@@ -26,13 +26,33 @@ export default class RegisterPage extends Component {
             pass: '',
             confPass: '',
             userType: 'USER',
+            locations: [],
+            location: 1
         };
 
         this.onFieldUpdate = this.onFieldUpdate.bind(this); //needed with arrow op?
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentDidMount() {
+        RNAndroidBridge.getLocations()
+            .then(arr => {
+                this.setState({locations: arr});
+            })
+            .catch(err => {
+                Alert.alert("Error", JSON.stringify(err));
+            });
+    }
+
     render() {
+        const createPickerItems = location => {
+            return <Picker.Item key={location.key} label={location.name} value={location.key} />;
+        };
+        const items = [];
+        for (let i = 0; i < this.state.locations.length; i += 1) {
+            items.push(createPickerItems(this.state.locations[i]));
+        }
+
         return (
             <View style={VIEW_STYLES.defaultColumn}>
                 <ScrollView style={{width: '100%'}}>
@@ -68,6 +88,14 @@ export default class RegisterPage extends Component {
                     <Picker.Item label="Manager" value={UserType.MANAGER} />
                     <Picker.Item label="User" value={UserType.USER} />
                 </Picker>
+                {this.state.userType === UserType.LOCATION_EMPLOYEE ? (
+                    <Picker
+                        selectedValue={this.state.location}
+                        style={{ height: 50, width: 200 }}
+                        onValueChange={location => this.setState({location})}>
+                        {items}
+                    </Picker>
+                ) : <Text/>}
 
                 {/* buttons */}
                 <View style={VIEW_STYLES.defaultRow}>
@@ -98,10 +126,11 @@ export default class RegisterPage extends Component {
             email,
             pass,
             confPass,
-            userType
+            userType,
+            location
         } = this.state;
 
-        RNAndroidBridge.registerUser(email, pass, `${fname} ${lname}`, false, userType)
+        RNAndroidBridge.registerUser(email, pass, `${fname} ${lname}`, false, userType, location)
         .then(response => {
             if (response === 'SUCCESS') {
                 Alert.alert("Success", "Registration Successful", [{text: 'Login', onPress: () => {this.props.navigation.navigate('Login');}}]);

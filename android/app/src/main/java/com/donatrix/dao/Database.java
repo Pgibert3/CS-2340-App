@@ -4,11 +4,10 @@ import android.content.Context;
 import android.util.Log;
 
 import com.donatrix.R;
-import com.donatrix.model.Location;
-import com.donatrix.model.User;
-import com.donatrix.model.UserType;
 import com.donatrix.model.Item;
+import com.donatrix.model.Location;
 import com.donatrix.model.LocationEmployee;
+import com.donatrix.model.User;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -18,10 +17,9 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 
 public class Database {
@@ -45,6 +43,10 @@ public class Database {
 
     private Database(Context context) {
         load(context);
+    }
+
+    public void addLocationEmployee(User user, Location location) {
+        employeeMap.put((LocationEmployee) user, location);
     }
 
     private void writeFile(String filename, HashMap map, Context context) throws Exception {
@@ -145,10 +147,19 @@ public class Database {
     }
 
     public List<Location> getLocations() {
-        return (ArrayList<Location>) locationMap.values();
+        return new ArrayList<>(locationMap.values());
     }
+
+//    public Map<Integer, Location> getLocations() {
+//        return locationMap;
+//    }
     public void addItem(Item item, LocationEmployee employee) {
-        itemMap.get(employeeMap.get(employee)).add(item);
+        ArrayList<Item> items = itemMap.get(employeeMap.get(employee));
+        if (items == null) {
+            items = new ArrayList<>();
+        }
+        items.add(item);
+        itemMap.put(employeeMap.get(employee), items);
     }
     public User getUser(String username) {
         return userMap.get(username);
