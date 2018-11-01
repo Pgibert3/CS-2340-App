@@ -25,8 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RNAndroidBridge extends ReactContextBaseJavaModule {
-    Context context = this.getCurrentActivity();
-    User user;
+    private Context context;
+    private User user;
+    
     public RNAndroidBridge(ReactApplicationContext reactContext) {
         super(reactContext);
     }
@@ -38,22 +39,21 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void registerUser(String email, String password, String name, boolean locked, String type, Integer id, Promise promise) {
-        Log.d("Donatrix", "Start");
+        this.context = this.getCurrentActivity();
         try {
             if (type.equals(UserType.USER.getType())) {
                 User user = new User(email, password, name, locked, UserType.USER);
-                UserDao.registerUser(user, context);
+                UserDao.registerUser(user, this.context);
                 promise.resolve("SUCCESS");
             } else if (type.equals(UserType.ADMIN.getType())) {
                 User user = new Admin(email, password, name);
-                UserDao.registerUser(user, context);
+                UserDao.registerUser(user, this.context);
                 promise.resolve("SUCCESS");
             } else if (type.equals(UserType.LOCATION_EMPLOYEE.getType())) {
-                Log.d("Donatrix", "kinda working");
-                Location location = LocationDao.getLocationByID(id, context);
+                Location location = LocationDao.getLocationByID(id, this.context);
                 User user = new LocationEmployee(email, password, name, location);
                 UserDao.registerUser(user, context);
-                LocationDao.addLocationEmployee(user, location, context);
+                LocationDao.addLocationEmployee(user, location, this.context);
                 promise.resolve("SUCCESS");
             }
         } catch (Exception e) {
@@ -81,6 +81,7 @@ public class RNAndroidBridge extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void checkRegisteredUser(String email, String password, Promise promise) {
+        this.context = this.getCurrentActivity();
         try {
             boolean result;
             if ((result = UserDao.checkRegisteredUser(email, password, context))) {
