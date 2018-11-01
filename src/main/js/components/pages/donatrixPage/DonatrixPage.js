@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {
     View,
-    StyleSheet,
+    StyleSheet, Alert,
 } from 'react-native';
 import {
     Toolbar,
@@ -10,6 +10,8 @@ import {
     FilterList,
     ItemList,
 } from './dlib/DLib';
+import RNAndroidBridge from "../../../utils/AndroidBridge";
+import ItemCategory from "../../../utils/ItemCategory";
 
 /**
  * Main page of the donatrix
@@ -61,7 +63,7 @@ export default class DonatrixPage extends Component {
         this.search = this.search.bind(this);
     }
 
-    ComponentWillMount() {
+    componentDidMount() {
         this.loadFilterData()
     }
 
@@ -164,18 +166,23 @@ export default class DonatrixPage extends Component {
      */
      loadFilterData() {
          let filtersFromBackend = {};
+         let locations = [];
+         const categories = Object.values(ItemCategory);
 
-         //TODO: Implement the following comment:
-         /* filtersFromBackend = {
-                                   Location : ["loc1", "loc2", ...],
-                                   Category : ["cat1", "cat2", ...]
-                                 }
-         */
-         //DONE
-
-         this.setState({
-             filterData: this.formatToBooleanStructure(filtersFromBackend),
-         })
+        RNAndroidBridge.getLocations()
+            .then(arr => {
+                locations = arr.map(loc => loc.name);
+                filtersFromBackend = {
+                    Location : locations,
+                    Category : categories
+                };
+                this.setState({
+                    filterData: this.formatToBooleanStructure(filtersFromBackend),
+                })
+            })
+            .catch(err => {
+                Alert.alert("Error", JSON.stringify(err));
+            });
      }
 
     /**
@@ -184,7 +191,7 @@ export default class DonatrixPage extends Component {
      * @param data {object} the data to format. Takes the form:
      *                      {
      *                          Location : ["Location1", "Location2", ...],
-     *                          Cataegory : ["Category1", "Category2", ...],
+     *                          Category : ["Category1", "Category2", ...],
      *                      }
      *
      * @return data formatted according to BooleanTree structure. Defaults all
@@ -196,6 +203,7 @@ export default class DonatrixPage extends Component {
         function _createDefaultNode(id, value, defaultBool) {
             return {id : id, value : value, bool : defaultBool, children : []}
         }
+        alert(JSON.stringify(data['Location']));
 
         let locationChildren = data["Location"].map((f) => (
             _createDefaultNode(f.toLowerCase(), f, defaultBool)
@@ -228,17 +236,18 @@ export default class DonatrixPage extends Component {
      * @param data {object[]} BooleanTree structured data to get selected
      *                        filters from
      *
-     * @return the childmost selected filters
+     * @return {Location: Array, Category: Array} childmost selected filters
      *         i.e. filter.bool = true && filter.children.length == 0
      *         output takes the form:
      *         {
      *           Location : ["Location1", "Location2", ...],
-     *           Cataegory : ["Category1", "Category2", ...],
+     *           Category : ["Category1", "Category2", ...],
      *         }
      */
-    getSelectedFilters(data) {
+    getSelectedFilters() {
         let formattedLocations = [];
-        this.tree.getLeavesByBool("location", true).forEach((node) => {
+        alert(JSON.stringify(this.tree)); // This is displaying undefined
+        this.tree.getLeavesByBool("location", true).forEach((node) => { // This is causing an error saying it evaluates to undefined
             formattedLocations.push(node.id);
         });
 
@@ -247,12 +256,10 @@ export default class DonatrixPage extends Component {
             formattedCategories.push(node.id);
         });
 
-        let formattedFilters = {
+        return {
             Location : formattedLocations,
             Category : formattedCategories,
         };
-
-        return formattedFilters;
     }
 }
 

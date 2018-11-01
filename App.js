@@ -24,7 +24,7 @@ const RootStack = createStackNavigator(
         Location: LocationsDashboardPage
     },
     {
-        initialRouteName: 'Donatrix',
+        initialRouteName: 'Welcome',
         headerMode: 'none'
     }
 );
