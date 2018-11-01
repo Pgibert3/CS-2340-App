@@ -133,7 +133,7 @@ export default class DonatrixPage extends Component {
      * @param title {string} the title of an item to search for
      */
     search(title) {
-        let filters = this.getSelectedFilters();
+        let filters = this.state.selectedFilters;
         //filters = {
         //    Locations : ["L1", "L2", ...], Categories : ["C1", "C2", ...],
         // };
@@ -228,38 +228,6 @@ export default class DonatrixPage extends Component {
                }
            ]
        }];
-    }
-
-    /**
-     * Gets the childmost filters that are currently selected
-     *
-     * @param data {object[]} BooleanTree structured data to get selected
-     *                        filters from
-     *
-     * @return {Location: Array, Category: Array} childmost selected filters
-     *         i.e. filter.bool = true && filter.children.length == 0
-     *         output takes the form:
-     *         {
-     *           Location : ["Location1", "Location2", ...],
-     *           Category : ["Category1", "Category2", ...],
-     *         }
-     */
-    getSelectedFilters() {
-        let formattedLocations = [];
-        alert(JSON.stringify(this.tree)); // This is displaying undefined
-        this.tree.getLeavesByBool("location", true).forEach((node) => { // This is causing an error saying it evaluates to undefined
-            formattedLocations.push(node.id);
-        });
-
-        let formattedCategories = [];
-        this.tree.getLeavesByBool("category", true).forEach((node) => {
-            formattedCategories.push(node.id);
-        });
-
-        return {
-            Location : formattedLocations,
-            Category : formattedCategories,
-        };
     }
 }
 
